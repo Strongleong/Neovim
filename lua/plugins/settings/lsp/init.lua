@@ -69,7 +69,7 @@ local servers = masonlspconfig.get_installed_servers()
 
 for _, server in pairs(servers) do
 
-  local ok, settings = pcall(require, "plugins.settings.lsp." .. server)
+  local ok, settings = pcall(require, "plugins.settings.lsp.servers." .. server)
   local srv_config = {}
 
   if not ok then

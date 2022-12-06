@@ -78,11 +78,11 @@ return packer.startup(function(use)
   use 'saadparwaiz1/cmp_luasnip'  -- Snippet completions
 
   -- LSP
+  use 'neovim/nvim-lspconfig'
   use 'williamboman/mason.nvim'
   use 'williamboman/mason-lspconfig.nvim'
-  use 'neovim/nvim-lspconfig'
-  use 'jose-elias-alvarez/null-ls.nvim' -- For formatters and linters
   use 'glepnir/lspsaga.nvim'
+  use "b0o/schemastore.nvim"
 
   -- Treesitter
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
@@ -108,7 +108,6 @@ return packer.startup(function(use)
   use 'rcarriga/cmp-dap'
   use 'nvim-telescope/telescope-dap.nvim'
   use 'theHamsta/nvim-dap-virtual-text'
-  use 'ravenxrz/DAPInstall.nvim'
 
   if PACKER_BOOTSTRAP then
     require('packer').sync()
