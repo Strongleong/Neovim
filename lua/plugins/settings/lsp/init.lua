@@ -81,7 +81,8 @@ for _, server in pairs(servers) do
     srv_config = {
       on_attach = keymaps.on_attach,
       capabilities = capabilities,
-      settings = settings,
+      settings = settings.settings,
+      filetypes = settings.filetypes
     }
   end
 
