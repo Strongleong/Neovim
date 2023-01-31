@@ -93,8 +93,8 @@ map(  'v', '<A-l>', ':MoveHBlock(1)<CR>',  '[Move] Move block right')
 map(  'v', '<A-h>', ':MoveHBlock(-1)<CR>', '[Move] Move block left')
 
 map(  'n', '<leader>g', ':Neogit<CR>',                 '[Neogit] Open Neogit')
-map(  'n', 'tl',        ':TagbarToggle<CR>',           '[Tagbar] Toggle Tagbar')
-map(  'n', 'mm',        ':MinimapToggle<CR>',          '[Minimap] Toggle Minimap')
+-- map(  'n', 'tl',        ':TagbarToggle<CR>',           '[Tagbar] Toggle Tagbar')
+-- map(  'n', 'mm',        ':MinimapToggle<CR>',          '[Minimap] Toggle Minimap')
 map(  'n', '<C-n>',     ':NvimTreeFindFileToggle<CR>', '[NvimTree] Toggle NvimTree')
 
 status_ok, _ = pcall(require, 'telescope')
@@ -196,6 +196,9 @@ map('n', 'ga', '<Plug>(EasyAlign)', '[EasyAlign] Start interactive EasyAlign for
 
 
 -- ToggleTerm
+map('n', '<space>tb', ':ToggleTerm direction=horizontal<CR>', '[ToggleTerm] Open terminal below')
+map('n', '<space>tl', ':ToggleTerm direction=vertical<CR>',   '[ToggleTerm] Open terminal left')
+
 function _G.set_terminal_keymaps()
   local opts = {buffer = 0}
   map('t', '<C-h>', [[<Cmd>wincmd h<CR>]], '[ToggleTerm] Go to left pane',  opts)
