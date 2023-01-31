@@ -97,6 +97,10 @@ require 'nvim-treesitter.configs'.setup {
     },
 }
 
+if require'custom.lib'.is_windows then
+    require 'nvim-treesitter.install'.compilers = { "clang" }
+end
+
 local vim = vim
 local api = vim.api
 local M = {}

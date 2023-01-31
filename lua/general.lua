@@ -1,14 +1,23 @@
 vim.cmd('syntax on')
 vim.cmd('filetype plugin indent on')
 
-require 'custom.market-sftp-upload'
+local is_windows = require'custom.lib'.is_windows
 
 local path        = vim.opt.path + '**'
 local clipboard   = 'unnamedplus'
 local completeopt = {'menuone', 'noselect'}
 local foldexpr    = 'nvim_treesitter#foldexpr()'
-local undodir     = os.getenv('HOME') .. '/.nvim/undo'
 local font        = 'RobotoMono Nerd Font:h11'
+local homePath    = os.getenv('HOME')
+
+local undodir     = ''
+if not homePath == nil then
+  undodir = homePath .. '/.nvim/undo'
+end
+
+if not is_windows then
+  vim.opt.undodir = undodir            -- Directory where the undo files will be stored
+end
 
 vim.opt.hidden         = true          -- Allow files to remain open without saving
 vim.opt.number         = true          -- Line numbers
@@ -21,7 +30,6 @@ vim.opt.expandtab      = true          -- Use spaces instead of tabs
 vim.opt.path           = path          -- Searches current directory recursively.
 vim.opt.clipboard      = clipboard     -- Copy/paste between vim and other programs
 vim.opt.undofile       = true          -- Allow do undo even after restart
-vim.opt.undodir        = undodir       -- Directory where the undo files will be stored
 vim.opt.cursorline     = true          -- Hilight line cursor on
 vim.opt.foldmethod     = 'expr'        -- Set foldlding method to 'expression'
 vim.opt.foldlevelstart = 20            -- Make that folds don't fold on startup
@@ -54,7 +62,11 @@ vim.opt.sidescrolloff  = 8             -- Same as previous but horizontaly
 vim.opt.guifont        = font          -- The font used in graphical neovim applications
 
 if vim.g.neovide then
-  vim.g.neovide_transparency = 0.8
+  if is_windows then
+    vim.g.neovide_transparency = 1.0
+  else
+    vim.g.neovide_transparency = 0.8
+  end
 else
   vim.g.background = 0;
 end
