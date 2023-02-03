@@ -64,11 +64,11 @@ map(  'i', '<C-+>',      increment_font_size,           '[GUI] Decrease font siz
 
 
 -- Snitch
-
-local ok, snitch = pcall(require, "custom.snitch")
-if ok then
-  map('n', '<leader>s', snitch, '[Snitch] Get all TODO\'s')
-end
+--
+-- local ok, snitch = pcall(require, "custom.snitch")
+-- if ok then
+--   map('n', '<leader>s', snitch, '[Snitch] Get all TODO\'s')
+-- end
 
 
 local status_ok, tmux = pcall(require, "nvim-tmux-navigation")

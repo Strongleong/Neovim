@@ -1,7 +1,7 @@
 local colorscheme = 'nightfox'
 
 require('general')
-require('keymaps')
 require('filetypes')
-require('plugins')
+require('lazy-init')
+require('keymaps')
 require('colorschemes')(colorscheme)

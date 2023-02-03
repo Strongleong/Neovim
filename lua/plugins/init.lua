@@ -1,19 +1,20 @@
-require('plugins.install')
+return {
+  'nvim-lua/popup.nvim',
+  'famiu/bufdelete.nvim',
+  'tpope/vim-sleuth',
+  'tpope/vim-repeat',
 
-local debbugersPath = vim.fn.stdpath('config') .. '/lua/plugins/settings'
-for _, file in ipairs(vim.fn.readdir(debbugersPath, [[v:val =~ '\.lua$']])) do
-  local ok, error = pcall(require, 'plugins.settings.' .. file:gsub('%.lua$', ''))
-  if not ok then
-    vim.notify('Error. could not load file ' .. debbugersPath .. file .. ': ' .. error)
-  end
-end
+  'vifm/vifm.vim',
+  'fedepujol/move.nvim',
+  'JoosepAlviste/nvim-ts-context-commentstring',
 
-local ok, error = pcall(require, 'plugins.settings.lsp')
-if not ok then
-  vim.notify('Error. Can\'t load LSP settings: ' .. error)
-end
+  -- Colorchemes
+  "EdenEast/nightfox.nvim",
 
-ok, error = pcall(require, 'plugins.settings.dap.init')
-if not ok then
-  vim.notify('Error. Can\'t load DAP settings: ' .. error)
-end
+  -- Debuging
+  'mfussenegger/nvim-dap',
+  'rcarriga/nvim-dap-ui',
+  'rcarriga/cmp-dap',
+  'nvim-telescope/telescope-dap.nvim',
+  'theHamsta/nvim-dap-virtual-text',
+}

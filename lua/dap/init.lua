@@ -1,3 +1,4 @@
+-- NOTE: To lazy to setup DAP yet
 local ok
 local dap
 
