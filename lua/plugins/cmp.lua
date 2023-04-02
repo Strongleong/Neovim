@@ -118,7 +118,7 @@ return {
           sources = cmp.config.sources({
               { name = "path" },
               { name = "nvim_lua" },
-              { name = "dap" },
+              -- { name = "dap" },
               { name = "nvim_lsp" },
               { name = "luasnip" },
               { name = "buffer" },

@@ -158,29 +158,29 @@ map(  'n', '<leader>K',  '<cmd>lua require"qf".above("c")<CR>',       '[QuicFix]
 map(  'n', ']q',         '<cmd>lua require"qf".below("visible")<CR>', '[QuicFix] Go to next entry from cursor in visible list')
 map(  'n', '[q',         '<cmd>lua require"qf".above("visible")<CR>', '[QuicFix] Go to previous entry from cursor in visible list')
 
-local dap
-status_ok, dap = pcall(require, 'dap')
-if status_ok then
-  local function set_cond_breakpoint()
-    dap.set_breakpoint(vim.fn.input('Breakpoint condition: '))
-  end
-
-  local function set_log_point()
-    dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
-  end
-
-  map('n', '<F5>',       dap.continue,          '[DAP] Continue')
-  map('n', '<F10>',      dap.step_over,         '[DAP] Step over')
-  map('n', '<F11>',      dap.step_into,         '[DAP] Step into')
-  map('n', '<F12>',      dap.step_out,          '[DAP] Step out')
-  map('n', '<F9>',       dap.toggle_breakpoint, '[DAP] Toggle breakpoint')
-  map('n', '<Leader>B',  set_cond_breakpoint,   '[DAP] Set conditional breakpoint')
-  map('n', '<Leader>lp', set_log_point,         '[DAP] Set log point')
-  map('n', '<Leader>dr', dap.repl.open,         '[DAP] Open repl')
-  map('n', '<Leader>dl', dap.run_last,          '[DAP] Run last')
-else
-  vim.notify('Error. DAP not found')
-end
+-- local dap
+-- status_ok, dap = pcall(require, 'dap')
+-- if status_ok then
+--   local function set_cond_breakpoint()
+--     dap.set_breakpoint(vim.fn.input('Breakpoint condition: '))
+--   end
+--
+--   local function set_log_point()
+--     dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
+--   end
+--
+--   map('n', '<F5>',       dap.continue,          '[DAP] Continue')
+--   map('n', '<F10>',      dap.step_over,         '[DAP] Step over')
+--   map('n', '<F11>',      dap.step_into,         '[DAP] Step into')
+--   map('n', '<F12>',      dap.step_out,          '[DAP] Step out')
+--   map('n', '<F9>',       dap.toggle_breakpoint, '[DAP] Toggle breakpoint')
+--   map('n', '<Leader>B',  set_cond_breakpoint,   '[DAP] Set conditional breakpoint')
+--   map('n', '<Leader>lp', set_log_point,         '[DAP] Set log point')
+--   map('n', '<Leader>dr', dap.repl.open,         '[DAP] Open repl')
+--   map('n', '<Leader>dl', dap.run_last,          '[DAP] Run last')
+-- else
+--   vim.notify('Error. DAP not found')
+-- end
 
 -- Hop.nvim
 map('', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR,  current_line_only = true })<cr>", '[HOP] Jump to symbol')
