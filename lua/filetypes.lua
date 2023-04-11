@@ -46,6 +46,12 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
   desc    = 'Rasi file type (rofi config)'
 })
 
+vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+  pattern = {'*.qml'},
+  command = 'set ft=qml',
+  desc    = 'QML file type (SDDM theme scripting)'
+})
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'python',
   command = 'setl softtabstop=4 shiftwidth=4 tabstop=4 textwidth=100',
