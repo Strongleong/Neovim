@@ -129,7 +129,7 @@ map('n', 'gd',           '<cmd>lua vim.lsp.buf.definition()<CR>',               
 map('n', 'gD',           '<cmd>lua vim.lsp.buf.declaration()<CR>',                                '[LSP] Go to declaration'       )
 map('n', 'gi',           '<cmd>lua vim.lsp.buf.implementation()<CR>',                             '[LSP] Go to implementation'    )
 map('n', 'gr',           '<cmd>lua vim.lsp.buf.references()<CR>',                                 '[LSP] Find all references'     )
-map('n', '<space>o',     '<cmd>LSoutlineToggle<CR>',                                              '[LSP] Open outline'            )
+map('n', '<space>o',     '<cmd>Lspsaga outline<CR>',                                              '[LSP] Open outline'            )
 map('n', '<space><C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>',                             '[LSP] Signature help'          )
 map('n', '<space>wa',    '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',                       '[LSP] Add workspace folder'    )
 map('n', '<space>wr',    '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',                    '[LSP] Remove workspace folder' )

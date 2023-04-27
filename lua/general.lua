@@ -72,11 +72,11 @@ end
 
 
 if vim.g.neovide then
-  if is_windows then
-    vim.g.neovide_transparency = 1.0
-  else
+  -- if is_windows then
+  --   vim.g.neovide_transparency = 1.0
+  -- else
     vim.g.neovide_transparency = 0.8
-  end
+  -- end
 else
   vim.g.background = 0;
 end

@@ -52,6 +52,12 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
   desc    = 'QML file type (SDDM theme scripting)'
 })
 
+vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+  pattern = {'*env.example'},
+  command = 'set ft=sh',
+  desc    = 'env.example files == .env files'
+})
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'python',
   command = 'setl softtabstop=4 shiftwidth=4 tabstop=4 textwidth=100',
