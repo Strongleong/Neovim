@@ -113,7 +113,7 @@ module.headers = {
     },
     colorscheme = 'VertSplit'
   },
-  vs_code = {
+  vscode = {
     header = {
       [[____   ___ _________________             ___       ]],
       [[\   \ /  //   _____/_   ___ \  ____   __| _/ ____  ]],
@@ -246,7 +246,7 @@ module.headers = {
   }
 }
 
-module.get_random = function (current)
+module.get_random = function(current)
   local keyset = {}
   local len = 0
 
@@ -260,8 +260,20 @@ module.get_random = function (current)
   return module.headers[keyset[math.random(len)]]
 end
 
-module.setHeader = function (header)
+module.setHeader = function(header)
   return module.headers[header]
+end
+
+module.getHeadersNames = function()
+  local keyset = {}
+  local n = 0
+
+  for k, _ in pairs(module.headers) do
+    n = n + 1
+    keyset[n] = k
+  end
+
+  return keyset
 end
 
 return module

@@ -7,18 +7,19 @@ return {
 	config = function()
 		local alpha     = require("alpha")
 		local dashboard = require("alpha.themes.dashboard")
+		local headers   = require("custom.alpha_headers")
 
 		-- vim.cmd([[:command! -nargs=0 AlphaRandomTitle lua RandomTitle()]])
 		-- vim.cmd([[:command! -nargs=1 AlphaTitle lua SetHeader(args)]])
 
 		function RandomTitle()
-			local header = require "custom.alpha_headers".get_random(dashboard.section.header.val)
+			local header = headers.get_random(dashboard.section.header.val)
 			SetHeader(header)
 		end
 
 		function Title(opts)
 			local headerName = opts.args
-			local header = require "custom.alpha_headers".setHeader(headerName)
+			local header = headers.setHeader(headerName)
 			SetHeader(header)
 		end
 
@@ -28,7 +29,9 @@ return {
 		end
 
 		vim.api.nvim_create_user_command('AlphaRandomTitle', RandomTitle, { nargs = 0 })
-		vim.api.nvim_create_user_command('AlphaTitle', Title, { nargs = 1 })
+			vim.api.nvim_create_user_command('AlphaTitle', Title, { nargs = 1, complete = function (ArgLead, CmdLine, CursorPos)
+			return headers.getHeadersNames()
+		end })
 
 		RandomTitle()
 
