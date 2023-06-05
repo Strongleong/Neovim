@@ -1,18 +1,17 @@
 return {
   'neovim/nvim-lspconfig',
-	dependencies = {
+  dependencies = {
     'hrsh7th/cmp-nvim-lsp',
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
     "b0o/schemastore.nvim",
   },
-  config = function ()
+  config = function()
     local masonlspconfig = require("mason-lspconfig")
     local lspconfig      = require("lspconfig")
-    local keymaps        = require("keymaps")
     local cmp_nvim_lsp   = require("cmp_nvim_lsp")
 
-    local config = {
+    local config         = {
       virtual_text = true,
       update_in_insert = true,
       underline = true,
@@ -45,19 +44,26 @@ return {
     local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
     local servers = masonlspconfig.get_installed_servers()
 
-    for _, server in pairs(servers) do
+    local on_attach = function(client, bufnr)
+      -- keymaps.on_attach()
+    end
 
+    for _, server in pairs(servers) do
       local ok, settings = pcall(require, "lsp.servers." .. server)
       local srv_config = {}
 
+      if server == 'tsserver' or server == 'volar' then
+        capabilities.textDocument.formatting = false
+      end
+
       if not ok then
         srv_config = {
-          on_attach = keymaps.on_attach,
+          on_attach = on_attach,
           capabilities = capabilities,
         }
       else
         srv_config = {
-          on_attach = keymaps.on_attach,
+          on_attach = on_attach,
           capabilities = capabilities,
           settings = settings.settings,
           filetypes = settings.filetypes
@@ -68,4 +74,3 @@ return {
     end
   end
 }
-

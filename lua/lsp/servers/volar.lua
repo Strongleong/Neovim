@@ -1,4 +1,5 @@
 return {
+  filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
   settings = {
     volar = {
       autoCompleteRefs        = false,

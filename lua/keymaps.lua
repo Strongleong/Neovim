@@ -1,5 +1,3 @@
-local M = {}
-
 local function map(mode, keys, command, description, additional)
   local options = { silent = true }
   local opts
@@ -27,6 +25,22 @@ local function map(mode, keys, command, description, additional)
   end
 end
 
+local function mapa(keys, command, description, additional)
+  map('', keys, command, description, additional)
+end
+
+local function mapn(keys, command, description, additional)
+  map('n', keys, command, description, additional)
+end
+
+local function mapi(keys, command, description, additional)
+  map('i', keys, command, description, additional)
+end
+
+local function mapv(keys, command, description, additional)
+  map('v', keys, command, description, additional)
+end
+
 local function adjust_font_size(amount)
   local font_full = vim.api.nvim_get_option('guifont')
   local font, size = string.match(font_full, "(.*):h(.*)")
@@ -42,23 +56,23 @@ local function decrement_font_size()
   adjust_font_size(-1)
 end
 
-map(  'n', '<Tab>',      ':bnext<CR>',                  '[Buffer] Next buffer')
-map(  'n', '<S-Tab>',    ':bprevious<CR>',              '[Buffer] Previous buffer')
+mapn('<Tab>',      ':bnext<CR>',                  '[Buffer] Next buffer')
+mapn('<S-Tab>',    ':bprevious<CR>',              '[Buffer] Previous buffer')
 
-map(  'n', '<Leader>ve', ':tabnew ~/.config/nvim/<CR>', '[Config] Quick edit of config')
+mapn('<Leader>ve', ':tabnew ~/.config/nvim/<CR>', '[Config] Quick edit of config')
 
-map(  'n', '<C-Left>',   ':vertical resize +3<CR>',     '[Resize] Increase pane height')
-map(  'n', '<C-Right>',  ':vertical resize -3<CR>',     '[Resize] Decrease pane height')
-map(  'n', '<C-Up>',     ':resize +3<CR>',              '[Resize] Increase pane width')
-map(  'n', '<C-Down>',   ':resize -3<CR>',              '[Resize] Decrease pane width')
+mapn('<C-Left>',   ':vertical resize +3<CR>',     '[Resize] Increase pane height')
+mapn('<C-Right>',  ':vertical resize -3<CR>',     '[Resize] Decrease pane height')
+mapn('<C-Up>',     ':resize +3<CR>',              '[Resize] Increase pane width')
+mapn('<C-Down>',   ':resize -3<CR>',              '[Resize] Decrease pane width')
 
-map(  'v', '>',          '>gv',                         '[Indent] Indent in visual mode vithout leaving to normal mode')
-map(  'v', '<',          '<gv',                         '[Indent] Unindent in visual mode vithout leaving to normal mode')
+mapv('>',          '>gv',                         '[Indent] Indent in visual mode vithout leaving to normal mode')
+mapv('<',          '<gv',                         '[Indent] Unindent in visual mode vithout leaving to normal mode')
 
-map(  'n', '-',          decrement_font_size,           '[GUI] Increase font size')
-map(  'n', '+',          increment_font_size,           '[GUI] Decrease font size')
-map(  'i', '<C-->',      decrement_font_size,           '[GUI] Increase font size')
-map(  'i', '<C-+>',      increment_font_size,           '[GUI] Decrease font size')
+mapn('-',          decrement_font_size,           '[GUI] Increase font size')
+mapn('+',          increment_font_size,           '[GUI] Decrease font size')
+mapi('<C-->',      decrement_font_size,           '[GUI] Increase font size')
+mapi('<C-+>',      increment_font_size,           '[GUI] Decrease font size')
 
 
 
@@ -67,30 +81,30 @@ map(  'i', '<C-+>',      increment_font_size,           '[GUI] Decrease font siz
 --
 -- local ok, snitch = pcall(require, "custom.snitch")
 -- if ok then
---   map('n', '<leader>s', snitch, '[Snitch] Get all TODO\'s')
+--   mapn('<leader>s', snitch, '[Snitch] Get all TODO\'s')
 -- end
 
 
 local status_ok, tmux = pcall(require, "nvim-tmux-navigation")
 if status_ok then
-  map('n', '<C-h>',     tmux.NvimTmuxNavigateLeft,       '[Navigation] Move focus left' )
-  map('n', '<C-j>',     tmux.NvimTmuxNavigateDown,       '[Navigation] Move focus down' )
-  map('n', '<C-k>',     tmux.NvimTmuxNavigateUp,         '[Navigation] Move focus up' )
-  map('n', '<C-l>',     tmux.NvimTmuxNavigateRight,      '[Navigation] Move focus Right' )
-  map('n', '<C-\\>',    tmux.NvimTmuxNavigateLastActive, '[Navigation] Move focus last active' )
-  map('n', '<C-Space>', tmux.NvimTmuxNavigateNext,       '[Navigation] Move focus next' )
+  mapn('<C-h>',     tmux.NvimTmuxNavigateLeft,       '[Navigation] Move focus left' )
+  mapn('<C-j>',     tmux.NvimTmuxNavigateDown,       '[Navigation] Move focus down' )
+  mapn('<C-k>',     tmux.NvimTmuxNavigateUp,         '[Navigation] Move focus up' )
+  mapn('<C-l>',     tmux.NvimTmuxNavigateRight,      '[Navigation] Move focus Right' )
+  mapn('<C-\\>',    tmux.NvimTmuxNavigateLastActive, '[Navigation] Move focus last active' )
+  mapn('<C-Space>', tmux.NvimTmuxNavigateNext,       '[Navigation] Move focus next' )
 else
   vim.notify('Error. nvim-tmux-navigation is not installed')
 end
 
-map(  'n', '<A-j>', ':MoveLine(1)<CR>',    '[Move] Move line down')
-map(  'n', '<A-k>', ':MoveLine(-1)<CR>',   '[Move] Move line up')
-map(  'n', '<A-l>', ':MoveHChar(1)<CR>',   '[Move] Move char right')
-map(  'n', '<A-h>', ':MoveHChar(-1)<CR>',  '[Move] Move char left')
-map(  'v', '<A-j>', ':MoveBlock(1)<CR>',   '[Move] Move block down')
-map(  'v', '<A-k>', ':MoveBlock(-1)<CR>',  '[Move] Move block up')
-map(  'v', '<A-l>', ':MoveHBlock(1)<CR>',  '[Move] Move block right')
-map(  'v', '<A-h>', ':MoveHBlock(-1)<CR>', '[Move] Move block left')
+mapn('<A-j>', ':MoveLine(1)<CR>',    '[Move] Move line down')
+mapn('<A-k>', ':MoveLine(-1)<CR>',   '[Move] Move line up')
+mapn('<A-l>', ':MoveHChar(1)<CR>',   '[Move] Move char right')
+mapn('<A-h>', ':MoveHChar(-1)<CR>',  '[Move] Move char left')
+mapv('<A-j>', ':MoveBlock(1)<CR>',   '[Move] Move block down')
+mapv('<A-k>', ':MoveBlock(-1)<CR>',  '[Move] Move block up')
+mapv('<A-l>', ':MoveHBlock(1)<CR>',  '[Move] Move block right')
+mapv('<A-h>', ':MoveHBlock(-1)<CR>', '[Move] Move block left')
 
 map(  'n', '<leader>g', ':Neogit<CR>',                 '[Neogit] Open Neogit')
 -- map(  'n', 'tl',        ':TagbarToggle<CR>',           '[Tagbar] Toggle Tagbar')
@@ -99,64 +113,74 @@ map(  'n', '<C-n>',     ':NvimTreeFindFileToggle<CR>', '[NvimTree] Toggle NvimTr
 
 status_ok, _ = pcall(require, 'telescope')
 if status_ok then
-  map('n', '<leader>ff',      '<cmd>lua require("telescope.builtin").find_files()<cr>', '[Telescope] Find files')
-  map('n', '<leader>fg',      '<cmd>lua require("telescope.builtin").git_files()<cr>',  '[Telescope] Find git files')
-  map('n', '<leader>fa',      '<cmd>lua require("telescope.builtin").live_grep()<cr>',  '[Telescope] Find string')
-  map('n', '<leader>fb',      '<cmd>lua require("telescope.builtin").buffers()<cr>',    '[Telescope] Find buffer')
-  map('n', '<leader>fh',      '<cmd>lua require("telescope.builtin").help_tags()<cr>',  '[Telescope] Find help')
-  map('n', '<leader>fr',      '<cmd>lua require("telescope.builtin").oldfiles()<cr>',   '[Telescope] Find recent')
+  mapn('<leader>ff',      '<cmd>lua require("telescope.builtin").find_files()<cr>', '[Telescope] Find files')
+  mapn('<leader>fg',      '<cmd>lua require("telescope.builtin").git_files()<cr>',  '[Telescope] Find git files')
+  mapn('<leader>fa',      '<cmd>lua require("telescope.builtin").live_grep()<cr>',  '[Telescope] Find string')
+  mapn('<leader>fb',      '<cmd>lua require("telescope.builtin").buffers()<cr>',    '[Telescope] Find buffer')
+  mapn('<leader>fh',      '<cmd>lua require("telescope.builtin").help_tags()<cr>',  '[Telescope] Find help')
+  mapn('<leader>fr',      '<cmd>lua require("telescope.builtin").oldfiles()<cr>',   '[Telescope] Find recent')
 else
   vim.notify('Error. Telescope not found')
 end
 
-map('n', '<space>gh', '<cmd>Lspsaga lsp_finder<CR>',              '[LSP] Open finder')
-map('n', '<space>e',  '<cmd>lua vim.diagnostic.open_float()<CR>', '[LSP] Open floating window with diagnostic')
-map('n', '[d',        '<cmd>Lspsaga diagnostic_jump_prev<CR>',    '[LSP] Goto previous diagnostic')
-map('n', ']d',        '<cmd>Lspsaga diagnostic_jump_next<CR>',    '[LSP] Goto next diagnostic')
+mapn('<space>q',   vim.diagnostic.setloclist,                 '[LSP] Send diagnostics to loclist')
+mapn('<space>e',   vim.diagnostic.open_float,                 '[LSP] Open floating window with diagnostic')
+
+mapn('<space>gh', '<cmd>Lspsaga lsp_finder<CR>',              '[LSP] Open finder')
+mapn('[d',        '<cmd>Lspsaga diagnostic_jump_prev<CR>',    '[LSP] Goto previous diagnostic')
+mapn(']d',        '<cmd>Lspsaga diagnostic_jump_next<CR>',    '[LSP] Goto next diagnostic')
 
 -- Only jump to error
 
-map("n", "[D", function()
+mapn("[D", function()
   require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
 end,     '[LSP] Jump to previous error')
-map("n", "]D", function()
+mapn("]D", function()
   require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
 end,     '[LSP] Jump to next error')
 
-map('n', 'K',            '<cmd>Lspsaga hover_doc<CR>',                                            '[LSP] Open hover window'       )
-map('n', 'gp',           '<cmd>Lspsaga peek_definition<CR>',                                      '[LSP] Peek definition'         )
-map('n', 'gd',           '<cmd>lua vim.lsp.buf.definition()<CR>',                                 '[LSP] Go to definition'        )
-map('n', 'gD',           '<cmd>lua vim.lsp.buf.declaration()<CR>',                                '[LSP] Go to declaration'       )
-map('n', 'gi',           '<cmd>lua vim.lsp.buf.implementation()<CR>',                             '[LSP] Go to implementation'    )
-map('n', 'gr',           '<cmd>lua vim.lsp.buf.references()<CR>',                                 '[LSP] Find all references'     )
-map('n', '<space>o',     '<cmd>Lspsaga outline<CR>',                                              '[LSP] Open outline'            )
-map('n', '<space><C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>',                             '[LSP] Signature help'          )
-map('n', '<space>wa',    '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',                       '[LSP] Add workspace folder'    )
-map('n', '<space>wr',    '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',                    '[LSP] Remove workspace folder' )
-map('n', '<space>wl',    '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', '[LSP] List workspace folders'  )
-map('n', '<space>D',     '<cmd>lua vim.lsp.buf.type_definition()<CR>',                            '[LSP] Open type definition'    )
-map('n', '<space>rn',    '<cmd>Lspsaga rename<CR>"',                                              '[LSP] Rename selected element' )
-map('n', '<space>ca',    '<cmd>Lspsaga code_action<CR>',                                          '[LSP] Open code action pop-up' )
-map('n', '<space>f',     '<cmd>lua vim.lsp.buf.format({ async = true})<CR>',                      '[LSP] Format buffer'           )
+mapn('<space>o',  '<cmd>Lspsaga outline<CR>',         '[LSP] Open outline'            )
+mapn('K',         '<cmd>Lspsaga hover_doc<CR>',       '[LSP] Open hover window'       )
+mapn('gp',        '<cmd>Lspsaga peek_definition<CR>', '[LSP] Peek definition'         )
+mapn('<space>rn', '<cmd>Lspsaga rename<CR>"',         '[LSP] Rename selected element' )
+mapn('<space>ca', '<cmd>Lspsaga code_action<CR>',     '[LSP] Open code action pop-up' )
 
-map(  'n', 't<C-n>', ':TestNearest<CR>', '[VimTest] Test nearset case')
-map(  'n', 't<C-f>', ':TestFile<CR>',    '[VimTest] Test file')
-map(  'n', 't<C-l>', ':TestLast<CR>',    '[VimTest] Test last case')
-map(  'n', 't<C-a>', ':TestSuite<CR>',   '[VimTest] Test suite')
-map(  'n', 't<C-v>', ':TestVisit<CR>',   '[VimTest] Test case under cursor')
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function (ev)
+    local opts = { buffer = ev.buf }
+    mapn('gd',           vim.lsp.buf.definition,                                 '[LSP] Go to definition',        opts)
+    mapn('gD',           vim.lsp.buf.declaration,                                '[LSP] Go to declaration',       opts)
+    mapn('gi',           vim.lsp.buf.implementation,                             '[LSP] Go to implementation',    opts)
+    mapn('gr',           vim.lsp.buf.references,                                 '[LSP] Find all references',     opts)
+    mapn('<space><C-k>', vim.lsp.buf.signature_help,                             '[LSP] Signature help',          opts)
+    mapn('<space>wa',    vim.lsp.buf.add_workspace_folder,                       '[LSP] Add workspace folder',    opts)
+    mapn('<space>wr',    vim.lsp.buf.remove_workspace_folder,                    '[LSP] Remove workspace folder', opts)
+    mapn('<space>D',     vim.lsp.buf.type_definition,                            '[LSP] Open type definition',    opts)
 
-map(  'n', '<leader>lo', '<cmd>lua require"qf".open("l")<CR>',        '[QuicFix] Open location list')
-map(  'n', '<leader>lc', '<cmd>lua require"qf".close("l")<CR>',       '[QuicFix] Close location list')
-map(  'n', '<leader>ll', '<cmd>lua require"qf".toggle("l",true)<CR>', '[QuicFix] Toggle location list and stay in current window')
-map(  'n', '<leader>co', '<cmd>lua require"qf".open("c")<CR>',        '[QuicFix] Open quickfix list')
-map(  'n', '<leader>cc', '<cmd>lua require"qf".close("c")<CR>',       '[QuicFix] Close quickfix list')
-map(  'n', '<leader>cl', '<cmd>lua require"qf".toggle("c",true)<CR>', '[QuicFix] Toggle quickfix list and stay in current window')
-map(  'n', '<leader>j',  '<cmd>lua require"qf".below("l")<CR>',       '[QuicFix] Go to next location list entry from cursor')
-map(  'n', '<leader>k',  '<cmd>lua require"qf".above("l")<CR>',       '[QuicFix] Go to previous location list entry from cursor')
-map(  'n', '<leader>J',  '<cmd>lua require"qf".below("c")<CR>',       '[QuicFix] Go to next quickfix entry from cursor')
-map(  'n', '<leader>K',  '<cmd>lua require"qf".above("c")<CR>',       '[QuicFix] Go to previous quickfix entry from cursor')
-map(  'n', ']q',         '<cmd>lua require"qf".below("visible")<CR>', '[QuicFix] Go to next entry from cursor in visible list')
-map(  'n', '[q',         '<cmd>lua require"qf".above("visible")<CR>', '[QuicFix] Go to previous entry from cursor in visible list')
+    mapn('<space>wl',    function () print(vim.inspect(vim.lsp.buf.list_workspace_folders)) end, '[LSP] List workspace folders',  opts)
+    mapn('<space>f',     function () require'custom.lsp-stuff'.lsp_formatting(ev.buf) end,       '[LSP] Format buffer',           opts)
+  end,
+})
+
+mapn('t<C-n>', ':TestNearest<CR>', '[VimTest] Test nearset case')
+mapn('t<C-f>', ':TestFile<CR>',    '[VimTest] Test file')
+mapn('t<C-l>', ':TestLast<CR>',    '[VimTest] Test last case')
+mapn('t<C-a>', ':TestSuite<CR>',   '[VimTest] Test suite')
+mapn('t<C-v>', ':TestVisit<CR>',   '[VimTest] Test case under cursor')
+
+mapn('<leader>lo', '<cmd>lua require"qf".open("l")<CR>',        '[QuicFix] Open location list')
+mapn('<leader>lc', '<cmd>lua require"qf".close("l")<CR>',       '[QuicFix] Close location list')
+mapn('<leader>ll', '<cmd>lua require"qf".toggle("l",true)<CR>', '[QuicFix] Toggle location list and stay in current window')
+mapn('<leader>co', '<cmd>lua require"qf".open("c")<CR>',        '[QuicFix] Open quickfix list')
+mapn('<leader>cc', '<cmd>lua require"qf".close("c")<CR>',       '[QuicFix] Close quickfix list')
+mapn('<leader>cl', '<cmd>lua require"qf".toggle("c",true)<CR>', '[QuicFix] Toggle quickfix list and stay in current window')
+mapn('<leader>j',  '<cmd>lua require"qf".below("l")<CR>',       '[QuicFix] Go to next location list entry from cursor')
+mapn('<leader>k',  '<cmd>lua require"qf".above("l")<CR>',       '[QuicFix] Go to previous location list entry from cursor')
+mapn('<leader>J',  '<cmd>lua require"qf".below("c")<CR>',       '[QuicFix] Go to next quickfix entry from cursor')
+mapn('<leader>K',  '<cmd>lua require"qf".above("c")<CR>',       '[QuicFix] Go to previous quickfix entry from cursor')
+mapn(']q',         '<cmd>lua require"qf".below("visible")<CR>', '[QuicFix] Go to next entry from cursor in visible list')
+mapn('[q',         '<cmd>lua require"qf".above("visible")<CR>', '[QuicFix] Go to previous entry from cursor in visible list')
 
 -- local dap
 -- status_ok, dap = pcall(require, 'dap')
@@ -169,35 +193,35 @@ map(  'n', '[q',         '<cmd>lua require"qf".above("visible")<CR>', '[QuicFix]
 --     dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
 --   end
 --
---   map('n', '<F5>',       dap.continue,          '[DAP] Continue')
---   map('n', '<F10>',      dap.step_over,         '[DAP] Step over')
---   map('n', '<F11>',      dap.step_into,         '[DAP] Step into')
---   map('n', '<F12>',      dap.step_out,          '[DAP] Step out')
---   map('n', '<F9>',       dap.toggle_breakpoint, '[DAP] Toggle breakpoint')
---   map('n', '<Leader>B',  set_cond_breakpoint,   '[DAP] Set conditional breakpoint')
---   map('n', '<Leader>lp', set_log_point,         '[DAP] Set log point')
---   map('n', '<Leader>dr', dap.repl.open,         '[DAP] Open repl')
---   map('n', '<Leader>dl', dap.run_last,          '[DAP] Run last')
+--   mapn('<F5>',       dap.continue,          '[DAP] Continue')
+--   mapn('<F10>',      dap.step_over,         '[DAP] Step over')
+--   mapn('<F11>',      dap.step_into,         '[DAP] Step into')
+--   mapn('<F12>',      dap.step_out,          '[DAP] Step out')
+--   mapn('<F9>',       dap.toggle_breakpoint, '[DAP] Toggle breakpoint')
+--   mapn('<Leader>B',  set_cond_breakpoint,   '[DAP] Set conditional breakpoint')
+--   mapn('<Leader>lp', set_log_point,         '[DAP] Set log point')
+--   mapn('<Leader>dr', dap.repl.open,         '[DAP] Open repl')
+--   mapn('<Leader>dl', dap.run_last,          '[DAP] Run last')
 -- else
 --   vim.notify('Error. DAP not found')
 -- end
 
 -- Hop.nvim
-map('', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR,  current_line_only = true })<cr>", '[HOP] Jump to symbol')
-map('', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", '[HOP] Jump back to symbol')
-map('', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR,  current_line_only = true, hint_offset = -1 })<cr>", '[HOP] Jump before symbol')
-map('', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = -1 })<cr>", '[HOP] Jump back before symbol')
+mapa('f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR,  current_line_only = true })<cr>", '[HOP] Jump to symbol')
+mapa('F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", '[HOP] Jump back to symbol')
+mapa('t', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR,  current_line_only = true, hint_offset = -1 })<cr>", '[HOP] Jump before symbol')
+mapa('T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = -1 })<cr>", '[HOP] Jump back before symbol')
 
 map('', '<leader>e', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", '[HOP] Jump to word')
 
 -- EasyAlign
 map('x', 'ga', '<Plug>(EasyAlign)', '[EasyAlign] Start interactive EasyAlign in visual mode')
-map('n', 'ga', '<Plug>(EasyAlign)', '[EasyAlign] Start interactive EasyAlign for a motion/text object')
+mapn('ga', '<Plug>(EasyAlign)', '[EasyAlign] Start interactive EasyAlign for a motion/text object')
 
 
 -- ToggleTerm
-map('n', '<space>tb', ':ToggleTerm direction=horizontal<CR>', '[ToggleTerm] Open terminal below')
-map('n', '<space>tl', ':ToggleTerm direction=vertical<CR>',   '[ToggleTerm] Open terminal left')
+mapn('<space>tb', ':ToggleTerm direction=horizontal<CR>', '[ToggleTerm] Open terminal below')
+mapn('<space>tl', ':ToggleTerm direction=vertical<CR>',   '[ToggleTerm] Open terminal left')
 
 function _G.set_terminal_keymaps()
   local opts = {buffer = 0}
@@ -209,6 +233,16 @@ end
 
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
+
+-- Bufdelete
+status_ok, _ = pcall(require, 'bufdelete')
+if status_ok then
+  mapn('<leader>d', '<cmd>Bd<CR>', '[Bufdelete] Delete buffer')
+  mapn('<leader>w', '<cmd>Bw<CR>', '[Bufdelete] Wipe buffer')
+else
+  mapn('<leader>d', '<cmd>bd<CR>', 'Delete buffer')
+  mapn('<leader>w', '<cmd>bw<CR>', 'Wipe buffer')
+end
 
 -- Hard mode :D
 map({'n', 'v'}, '<Up>',    '<Nop>', '[Hard mode :D] Disable UP key')
@@ -224,5 +258,3 @@ function! ChangePaste(type, ...)
     silent exe "normal! p"
 endfunction
 ]])
-
-return M
