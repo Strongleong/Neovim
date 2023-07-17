@@ -1,9 +1,10 @@
 return {
-  'TimUntersberger/neogit',
+  'NeogitOrg/neogit',
 	dependencies = {
 		'tpope/vim-fugitive',
 		'sindrets/diffview.nvim',
 		'lewis6991/gitsigns.nvim',
+		'nvim-lua/plenary.nvim',
 	},
 	config = {
 		disable_signs = false,

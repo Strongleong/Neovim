@@ -58,6 +58,24 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
   desc    = 'env.example files == .env files'
 })
 
+vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+  pattern = {'*.h'},
+  command = 'set ft=c',
+  desc    = 'set .h file to c in instead of cpp (for cpp use .hpp instead)'
+})
+
+vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+  pattern = {'*.porth'},
+  command = 'set ft=porth',
+  desc    = 'Add support for porth'
+})
+
+vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+  pattern = {'*.ASM'},
+  command = 'set ft=asm',
+  desc    = 'Uppercase asm is pepole too'
+})
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'python',
   command = 'setl softtabstop=4 shiftwidth=4 tabstop=4 textwidth=100',

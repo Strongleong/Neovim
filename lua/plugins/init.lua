@@ -17,4 +17,11 @@ return {
   'rcarriga/cmp-dap',
   'nvim-telescope/telescope-dap.nvim',
   'theHamsta/nvim-dap-virtual-text',
+
+  {
+    'mbledkowski/neuleetcode.vim',
+    config = function ()
+      vim.g.leetcode_browser = 'firefox'
+    end
+  }
 }
