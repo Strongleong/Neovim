@@ -23,13 +23,20 @@ return {
 			SetHeader(header)
 		end
 
+		function TelescopeTitle()
+			require'custom.alpha_heards_picker'.select_header()
+			pcall(vim.cmd.AlphaRedraw)
+		end
+
 		function SetHeader(header)
 			dashboard.section.header.val     = header.header
 			dashboard.section.header.opts.hl = header.colorscheme
+			pcall(vim.cmd.AlphaRedraw)
 		end
 
 		vim.api.nvim_create_user_command('AlphaRandomTitle', RandomTitle, { nargs = 0 })
-			vim.api.nvim_create_user_command('AlphaTitle', Title, { nargs = 1, complete = function (ArgLead, CmdLine, CursorPos)
+		vim.api.nvim_create_user_command('AlphaTelescopeTitle', TelescopeTitle, { nargs = 0 })
+		vim.api.nvim_create_user_command('AlphaTitle', Title, { nargs = 1, complete = function (ArgLead, CmdLine, CursorPos)
 			return headers.getHeadersNames()
 		end })
 
@@ -41,7 +48,8 @@ return {
 			dashboard.button("r", "  Recently used files", ":Telescope oldfiles <CR>"),
 			dashboard.button("a", "  Find text", ":Telescope live_grep <CR>"),
 			dashboard.button("c", "  Configuration", ":tabnew ~/.config/nvim/<CR>"),
-			dashboard.button("n", "  Random title", ":AlphaRandomTitle<CR>:AlphaRedraw<CR>"),
+			dashboard.button("n", "  Random title", ":AlphaRandomTitle<CR>"),
+			dashboard.button("t", "  Telescope title", ":AlphaTelescopeTitle<CR>"),
 			dashboard.button("g", "  Neogit", ":Neogit<CR>"),
 			dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
 		}
