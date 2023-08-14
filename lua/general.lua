@@ -8,15 +8,6 @@ local clipboard   = 'unnamedplus'
 local completeopt = {'menuone', 'noselect'}
 local foldexpr    = 'nvim_treesitter#foldexpr()'
 local font        = 'RobotoMono Nerd Font:h11'
-local homePath    = os.getenv('HOME')
-
-local undodir     = ''
-local shadadir    = ''
-
-if not homePath == nil then
-  undodir = homePath .. '/.nvim/undo'
-  undodir = homePath .. '/.nvim/shada'
-end
 
 vim.opt.hidden         = true          -- Allow files to remain open without saving
 vim.opt.number         = true          -- Line numbers
@@ -59,19 +50,21 @@ vim.opt.wrap           = false         -- Display lines as one long line
 vim.opt.scrolloff      = 8             -- Do not wait cursor at bottom to scroll
 vim.opt.sidescrolloff  = 8             -- Same as previous but horizontaly
 vim.opt.guifont        = font          -- The font used in graphical neovim applications
-vim.opt.shadafile      = shadadir      -- Path to ShaDa file
+
+local homePath    = os.getenv('HOME')
+if homePath ~= nil then
+  vim.opt.undodir   = homePath .. '/.local/nvim/undo'
+  vim.opt.shadafile = homePath .. '/.local/nvim/shadafile'
+end
 
 if is_windows then
-  vim.opt.shell = 'pwsh'
+  vim.opt.shell        = 'pwsh'
   vim.opt.shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
-  vim.opt.shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-  vim.opt.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-  vim.opt.shellquote = ''
-  vim.opt.shellxquote = ''
-
-  vim.opt.shelltemp = false
-else
-  vim.opt.undodir = undodir            -- Directory where the undo files will be stored
+  vim.opt.shellredir   = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+  vim.opt.shellpipe    = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+  vim.opt.shellquote   = ''
+  vim.opt.shellxquote  = ''
+  vim.opt.shelltemp    = false
 end
 
 
