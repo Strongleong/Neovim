@@ -94,3 +94,13 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 -- Tmux colors fix
 vim.cmd('let &t_8f = "\\<Esc>[38:2:%lu:%lu:%lum"')
 vim.cmd('let &t_8b = "\\<Esc>[48:2:%lu:%lu:%lum"')
+
+
+-- XkbSwitch Settings
+vim.g.XkbSwitchEnabled            = 1
+vim.g.XkbSwitchIMappings          = {'ru'}
+vim.g.XkbSwitchIminsertToggleEcho = 0
+
+if require'custom.lib'.is_windows then
+	vim.g.XkbSwitchLib = 'D:\\lib\\libxkbswitch64.dll'
+end
