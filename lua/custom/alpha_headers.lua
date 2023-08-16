@@ -276,4 +276,8 @@ module.getHeadersNames = function()
   return keyset
 end
 
+module.autocomplete = function (_, _, _)
+  return module.getHeadersNames()
+end
+
 return module

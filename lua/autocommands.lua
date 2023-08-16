@@ -8,7 +8,6 @@ local function create_autocmd(definitions)
   end
 end
 
-
 local autoCommands = {
   Filetypes = {
     {
@@ -205,6 +204,7 @@ local autoCommands = {
       },
     },
   },
+
   OpenFolds = {
     {
       events = { "BufReadPost,FileReadPost" },
@@ -214,7 +214,64 @@ local autoCommands = {
         desc = "Unfold all TreeSitter folds"
       }
     }
+  },
+
+  TrimSpaces = {
+    {
+      events = 'BufWritePre',
+      opts = {
+        pattern = '*',
+        command = [[:%s/\s\+$//e]],
+        desc = "Automatically strip trailing spaces on save"
+      }
+    }
+  },
+
+  NvimTree = {
+    {
+      events = 'QuitPre',
+      opts = {
+        desc = 'Automatically close nvim-tree if it is last window',
+        callback = function()
+          local tree_wins = {}
+          local floating_wins = {}
+          local wins = vim.api.nvim_list_wins()
+          for _, w in ipairs(wins) do
+            local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(w))
+            if bufname:match("NvimTree_") ~= nil then
+              table.insert(tree_wins, w)
+            end
+            if vim.api.nvim_win_get_config(w).relative ~= '' then
+              table.insert(floating_wins, w)
+            end
+          end
+          if 1 == #wins - #floating_wins - #tree_wins then
+            -- Should quit, so we close all invalid windows.
+            for _, w in ipairs(tree_wins) do
+              vim.api.nvim_win_close(w, true)
+            end
+          end
+        end,
+      }
+    }
+  },
+
+  Alpha = {
+    {
+      events = "User",
+      opts = {
+        pattern = "LazyVimStarted",
+        callback = function()
+          local stats = require("lazy").stats()
+          local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+          local message = "⚡ Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms"
+          require("alpha.themes.dashboard").section.footer.val = message
+          pcall(vim.cmd.AlphaRedraw)
+        end,
+      }
+    }
   }
+
 }
 
 create_autocmd(autoCommands)

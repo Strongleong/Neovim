@@ -8,9 +8,7 @@ return {
 		local alpha     = require("alpha")
 		local dashboard = require("alpha.themes.dashboard")
 		local headers   = require("custom.alpha_headers")
-
-		-- vim.cmd([[:command! -nargs=0 AlphaRandomTitle lua RandomTitle()]])
-		-- vim.cmd([[:command! -nargs=1 AlphaTitle lua SetHeader(args)]])
+		local make_cmd  = vim.api.nvim_create_user_command
 
 		function RandomTitle()
 			local header = headers.get_random(dashboard.section.header.val)
@@ -24,7 +22,7 @@ return {
 		end
 
 		function TelescopeTitle()
-			require'custom.alpha_heards_picker'.select_header()
+			require 'custom.alpha_heards_picker'.select_header()
 			pcall(vim.cmd.AlphaRedraw)
 		end
 
@@ -34,31 +32,29 @@ return {
 			pcall(vim.cmd.AlphaRedraw)
 		end
 
-		vim.api.nvim_create_user_command('AlphaRandomTitle', RandomTitle, { nargs = 0 })
-		vim.api.nvim_create_user_command('AlphaTelescopeTitle', TelescopeTitle, { nargs = 0 })
-		vim.api.nvim_create_user_command('AlphaTitle', Title, { nargs = 1, complete = function (ArgLead, CmdLine, CursorPos)
-			return headers.getHeadersNames()
-		end })
+		make_cmd('AlphaRandomTitle',    RandomTitle,    { nargs = 0 })
+		make_cmd('AlphaTelescopeTitle', TelescopeTitle, { nargs = 0 })
+		make_cmd('AlphaTitle',          Title,          { nargs = 1, complete = headers.autocomplete })
 
 		RandomTitle()
 
-		dashboard.section.buttons.val              = {
-			dashboard.button("f", "  Find file", ":Telescope find_files <CR>"),
-			dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
-			dashboard.button("r", "  Recently used files", ":Telescope oldfiles <CR>"),
-			dashboard.button("a", "  Find text", ":Telescope live_grep <CR>"),
-			dashboard.button("c", "  Configuration", ":tabnew ~/.config/nvim/<CR>"),
-			dashboard.button("n", "  Random title", ":AlphaRandomTitle<CR>"),
-			dashboard.button("t", "  Telescope title", ":AlphaTelescopeTitle<CR>"),
-			dashboard.button("g", "  Neogit", ":Neogit<CR>"),
-			dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
+		dashboard.section.buttons.val = {
+			dashboard.button("f", "  Find file",           ":Telescope find_files <CR>"               ),
+			dashboard.button("e", "  New file",            ":ene <BAR> startinsert <CR>"              ),
+			dashboard.button("r", "  Recently used files", ":Telescope oldfiles <CR>"                 ),
+			dashboard.button("a", "  Find text",           ":Telescope live_grep <CR>"                ),
+			dashboard.button("c", "  Configuration",       ":cd ~/.config/nvim/ <BAR> e init.lua<CR>" ),
+			dashboard.button("n", "  Random title",        ":AlphaRandomTitle<CR>"                    ),
+			dashboard.button("t", "  Telescope title",     ":AlphaTelescopeTitle<CR>"                 ),
+			dashboard.button("g", "  Neogit",              ":Neogit<CR>"                              ),
+			dashboard.button("q", "  Quit Neovim",         ":qa<CR>"                                  ),
 		}
 
 		dashboard.section.buttons.opts.hl          = "Constant"
 		dashboard.section.buttons.opts.hl_shortcut = "Constant"
 		dashboard.section.footer.opts.hl           = "Comment"
 
-		dashboard.opts.opts.noautocmd              = true
+		dashboard.opts.opts.noautocmd = true
 		alpha.setup(dashboard.opts)
 
 		if vim.o.filetype == "lazy" then
@@ -72,15 +68,5 @@ return {
 		end
 
 		alpha.setup(dashboard.opts)
-
-		vim.api.nvim_create_autocmd("User", {
-			pattern = "LazyVimStarted",
-			callback = function()
-				local stats = require("lazy").stats()
-				local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-				dashboard.section.footer.val = "⚡ Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms"
-				pcall(vim.cmd.AlphaRedraw)
-			end,
-		})
 	end
 }

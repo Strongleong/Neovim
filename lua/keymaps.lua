@@ -1,28 +1,15 @@
 local function map(mode, keys, command, description, additional)
   local options = { silent = true }
-  local opts
-  local bufnr
 
   if description ~= nil then
     options.desc = description
   end
 
   if additional ~= nil then
-    opts = additional.opts or {}
-    bufnr = additional.bufnr or nil
-
-    for k,v in pairs(opts) do options[k] = v end
-  else
-    opts = {}
-    bufnr = nil
+    for k,v in pairs(additional) do options[k] = v end
   end
 
-
-  if bufnr == nil then
-    vim.keymap.set(mode, keys, command, options)
-  else
-    vim.api.nvim_buf_set_keymap(bufnr, mode, keys, command, options)
-  end
+  vim.keymap.set(mode, keys, command, options)
 end
 
 local function mapa(keys, command, description, additional)
@@ -258,3 +245,22 @@ function! ChangePaste(type, ...)
     silent exe "normal! p"
 endfunction
 ]])
+
+--------------- Callbacks for plugins `on_attach` functions ---------------
+
+M = {}
+
+M.nvim_tree = function (bufnr)
+  local api = require('nvim-tree.api')
+  local opts = { buffer = bufnr, noremap = true, nowait = true }
+
+  api.config.mappings.default_on_attach(bufnr)
+
+  mapn('l',    api.node.open.edit,             '[NVIM-TREE] Open',                 opts)
+  mapn('<CR>', api.node.open.edit,             '[NVIM-TREE] Open',                 opts)
+  mapn('o',    api.node.open.edit,             '[NVIM-TREE] Open',                 opts)
+  mapn('h',    api.node.navigate.parent_close, '[NVIM-TREE] Close Directory',      opts)
+  mapn('v',    api.node.open.vertical,         '[NVIM-TREE] Open: Vertical Split', opts)
+end
+
+return M

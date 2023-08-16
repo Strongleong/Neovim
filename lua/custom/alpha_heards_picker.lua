@@ -4,30 +4,35 @@ if not ok then
   return
 end
 
-local headers = require'custom.alpha_headers'
+local headers = require 'custom.alpha_headers'
 
-local pickers      = require "telescope.pickers"
-local finders      = require "telescope.finders"
 local conf         = require("telescope.config").values
-local actions      = require "telescope.actions"
-local action_state = require "telescope.actions.state"
-local previewers   = require"telescope.previewers"
+local pickers      = require("telescope.pickers")
+local finders      = require("telescope.finders")
+local actions      = require("telescope.actions")
+local previewers   = require("telescope.previewers")
+local action_state = require("telescope.actions.state")
 
 M = {}
 
 M.select_header = function(opts)
   opts = opts or {}
+
   pickers.new(opts, {
     prompt_title = "Select Header",
+
     finder = finders.new_table {
       results = headers.getHeadersNames()
     },
+
     sorter = conf.generic_sorter(opts),
+
     previewer = previewers.new_buffer_previewer({
-      title = function (_)
+      title = function(_)
         return "Headers"
       end,
-      define_preview = function (self, entry, _)
+
+      define_preview = function(self, entry, _)
         local header_name = entry[1]
         local bufnr = self.state.bufnr
         vim.api.nvim_buf_clear_namespace(bufnr, -1, 1, -1)
@@ -37,8 +42,9 @@ M.select_header = function(opts)
         end
       end
     }),
-    attach_mappings = function (prompt_bufnr, _)
-      actions.select_default:replace(function ()
+
+    attach_mappings = function(prompt_bufnr, _)
+      actions.select_default:replace(function()
         actions.close(prompt_bufnr)
         local selection = action_state.get_selected_entry()
         vim.cmd("AlphaTitle " .. selection[1])
