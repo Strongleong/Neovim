@@ -270,6 +270,16 @@ local autoCommands = {
         end,
       }
     }
+  },
+
+  Terminal = {
+    {
+      events = "TermOpen",
+      opts = {
+          command = 'setlocal nonumber norelativenumber',
+          desc    = 'Disable line numbers in terminal'
+      }
+    }
   }
 
 }
