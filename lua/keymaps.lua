@@ -61,16 +61,12 @@ mapn('+',          increment_font_size,           '[GUI] Decrease font size')
 mapi('<C-->',      decrement_font_size,           '[GUI] Increase font size')
 mapi('<C-+>',      increment_font_size,           '[GUI] Decrease font size')
 
-
-
-
 -- Snitch
 --
 -- local ok, snitch = pcall(require, "custom.snitch")
 -- if ok then
 --   mapn('<leader>s', snitch, '[Snitch] Get all TODO\'s')
 -- end
-
 
 local status_ok, tmux = pcall(require, "nvim-tmux-navigation")
 if status_ok then
@@ -94,21 +90,14 @@ mapv('<A-l>', ':MoveHBlock(1)<CR>',  '[Move] Move block right')
 mapv('<A-h>', ':MoveHBlock(-1)<CR>', '[Move] Move block left')
 
 map(  'n', '<leader>g', ':Neogit<CR>',                 '[Neogit] Open Neogit')
--- map(  'n', 'tl',        ':TagbarToggle<CR>',           '[Tagbar] Toggle Tagbar')
--- map(  'n', 'mm',        ':MinimapToggle<CR>',          '[Minimap] Toggle Minimap')
 map(  'n', '<C-n>',     ':NvimTreeFindFileToggle<CR>', '[NvimTree] Toggle NvimTree')
 
-status_ok, _ = pcall(require, 'telescope')
-if status_ok then
-  mapn('<leader>ff',      '<cmd>lua require("telescope.builtin").find_files()<cr>', '[Telescope] Find files')
-  mapn('<leader>fg',      '<cmd>lua require("telescope.builtin").git_files()<cr>',  '[Telescope] Find git files')
-  mapn('<leader>fa',      '<cmd>lua require("telescope.builtin").live_grep()<cr>',  '[Telescope] Find string')
-  mapn('<leader>fb',      '<cmd>lua require("telescope.builtin").buffers()<cr>',    '[Telescope] Find buffer')
-  mapn('<leader>fh',      '<cmd>lua require("telescope.builtin").help_tags()<cr>',  '[Telescope] Find help')
-  mapn('<leader>fr',      '<cmd>lua require("telescope.builtin").oldfiles()<cr>',   '[Telescope] Find recent')
-else
-  vim.notify('Error. Telescope not found')
-end
+mapn('<leader>ff',      '<cmd>lua require("telescope.builtin").find_files()<cr>', '[Telescope] Find files')
+mapn('<leader>fg',      '<cmd>lua require("telescope.builtin").git_files()<cr>',  '[Telescope] Find git files')
+mapn('<leader>fa',      '<cmd>lua require("telescope.builtin").live_grep()<cr>',  '[Telescope] Find string')
+mapn('<leader>fb',      '<cmd>lua require("telescope.builtin").buffers()<cr>',    '[Telescope] Find buffer')
+mapn('<leader>fh',      '<cmd>lua require("telescope.builtin").help_tags()<cr>',  '[Telescope] Find help')
+mapn('<leader>fr',      '<cmd>lua require("telescope.builtin").oldfiles()<cr>',   '[Telescope] Find recent')
 
 mapn('<space>q',   vim.diagnostic.setloclist,                 '[LSP] Send diagnostics to loclist')
 mapn('<space>e',   vim.diagnostic.open_float,                 '[LSP] Open floating window with diagnostic')
