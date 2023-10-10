@@ -32,11 +32,11 @@ return {
 
         local kind_icons = {
             Text          = "",
-            Method        = "",
-            Function      = "",
+            Method        = "󰆧",
+            Function      = "󰊕",
             Constructor   = "",
-            Field         = "",
-            Variable      = "",
+            Field         = "󰇽",
+            Variable      = "󰂡",
             Class         = "ﴯ",
             Interface     = "",
             Module        = "",
@@ -46,16 +46,16 @@ return {
             Enum          = "",
             Keyword       = "",
             Snippet       = "",
-            Color         = "",
-            File          = "",
+            Color         = "󰏘",
+            File          = "󰈙",
             Reference     = "",
-            Folder        = "",
+            Folder        = "󰉋",
             EnumMember    = "",
-            Constant      = "",
+            Constant      = "󰏿",
             Struct        = "",
             Event         = "",
-            Operator      = "",
-            TypeParameter = ""
+            Operator      = "󰆕",
+            TypeParameter = "󰅲"
         }
 
         cmp.setup({
