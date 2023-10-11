@@ -132,7 +132,7 @@ return {
                 native_menu = false,
             },
             confirmation = {
-                get_commit_characters = function(commit_characters)
+                get_commit_characters = function(_)
                     return {}
                 end
             }
