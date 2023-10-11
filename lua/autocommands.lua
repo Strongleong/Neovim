@@ -205,17 +205,6 @@ local autoCommands = {
     },
   },
 
-  OpenFolds = {
-    {
-      events = { "BufReadPost,FileReadPost" },
-      opts = {
-        pattern = "*",
-        command = "normal zR",
-        desc = "Unfold all TreeSitter folds"
-      }
-    }
-  },
-
   TrimSpaces = {
     {
       events = 'BufWritePre',
