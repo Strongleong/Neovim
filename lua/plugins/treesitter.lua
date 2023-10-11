@@ -3,13 +3,17 @@ return {
     build = ':TSUpdate',
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
+        'nvim-treesitter/nvim-treesitter-textobjects',
     },
-    config = function ()
-        require'nvim-treesitter.configs'.setup {
+    config = function()
+        require 'nvim-treesitter.configs'.setup {
             highlight = {
                 enable = true,
                 additional_vim_regex_highlighting = false,
+
+                disable = function(_, bufnr) -- Disable in large buffers
+                    return vim.api.nvim_buf_line_count(bufnr) > 50000
+                end,
             },
             incremental_selection = {
                 enable = true,
@@ -52,7 +56,7 @@ return {
                     -- mapping query_strings to modes.
                     selection_modes = {
                         ['@parameter.outer'] = 'v', -- charwise
-                        ['@function.outer'] = 'V', -- linewise
+                        ['@function.outer'] = 'V',  -- linewise
                         ['@class.outer'] = '<c-v>', -- blockwise
                     },
                     -- If you set this to `true` (default is `false`) then any textobject is
@@ -97,28 +101,5 @@ return {
                 },
             },
         }
-
-        -- function to create a list of commands and convert them to autocommands
-        -------- This function is taken from https://github.com/norcalli/nvim_utils
-        local function nvim_create_augroups(definitions)
-            for group_name, definition in pairs(definitions) do
-                vim.api.nvim_command('augroup ' .. group_name)
-                vim.api.nvim_command('autocmd!')
-                for _, def in ipairs(definition) do
-                    local command = table.concat(vim.tbl_flatten { 'autocmd', def }, ' ')
-                    vim.api.nvim_command(command)
-                end
-                vim.api.nvim_command('augroup END')
-            end
-        end
-
-        local autoCommands = {
-            -- other autocommands
-            open_folds = {
-                { "BufReadPost,FileReadPost", "*", "normal zR" }
-            }
-        }
-
-        nvim_create_augroups(autoCommands)
     end
 }
