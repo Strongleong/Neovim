@@ -1,59 +1,28 @@
 return {
-  'NeogitOrg/neogit',
-  cmd = "Neogit",
-  dependencies = {
-    'tpope/vim-fugitive',
-    'sindrets/diffview.nvim',
-    'lewis6991/gitsigns.nvim',
-    'nvim-lua/plenary.nvim',
+  {
+    'NeogitOrg/neogit',
+    dependencies = {
+      'sindrets/diffview.nvim',
+      'nvim-lua/plenary.nvim',
+    },
+    config = {
+      git_services = {
+        ["github.com"] = "https://github.com/${owner}/${repository}/compare/${branch_name}?expand=1",
+        ["bitbucket.org"] = "https://bitbucket.org/${owner}/${repository}/pull-requests/new?source=${branch_name}&t=1",
+        ["gitlab.com"] = "https://gitlab.com/${owner}/${repository}/merge_requests/new?merge_request[source_branch]=${branch_name}",
+        ["git.sakh.com"] = "https://git.sakh.com/${owner}/${repository}/compare/${branch_name}",
+      },
+      integrations = {
+        diffview = true,
+        telescope = true,
+      },
+      commit_editor = {
+        kind = 'split',
+      },
+    },
   },
-  config = {
-    disable_signs = false,
-    disable_hint = false,
-    disable_context_highlighting = false,
-    disable_commit_confirmation = false,
-    auto_refresh = true,
-    disable_builtin_notifications = false,
-    use_magit_keybindings = false,
-    commit_popup = {
-      kind = "split",
-    },
-    kind = "tab",
-    signs = {
-      section = { ">", "v" },
-      item = { ">", "v" },
-      hunk = { ">", "v" },
-    },
-    integrations = {
-      diffview = true,
-    },
-    sections = {
-      untracked = {
-        folded = false,
-      },
-      unstaged = {
-        folded = false,
-      },
-      staged = {
-        folded = false,
-      },
-      stashes = {
-        folded = true,
-      },
-      unpulled = {
-        folded = true,
-        hidden = false,
-      },
-      unmerged = {
-        folded = false,
-        hidden = false,
-      },
-      recent = {
-        folded = true,
-      },
-    },
-    mappings = {
-      ["B"] = "BranchPopup",
-    },
-  }
+
+  'sindrets/diffview.nvim',
+  'lewis6991/gitsigns.nvim',
+  'tpope/vim-fugitive',
 }
