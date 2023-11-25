@@ -1,6 +1,7 @@
 vim.cmd('syntax on')
 vim.cmd('filetype plugin indent on')
 
+vim.g.mapleader        = ' '
 vim.opt.hidden         = true                         -- Allow files to remain open without saving
 vim.opt.number         = true                         -- Line numbers
 vim.opt.autoindent     = true                         -- Auto indenting
