@@ -57,6 +57,6 @@ return {
     -- TODO: lua-snippets.Make `snippets.lua` and dump every snippet there.
     --       Don't bother with `snippets/a.lua`
     require("luasnip/loaders/from_vscode").lazy_load()
-    require("luasnip/loaders/from_vscode").lazy_load({ paths = { "./snippets" } })
+    require("luasnip/loaders/from_lua").lazy_load({ paths = { "./lua/snippets" } })
   end
 }
