@@ -61,6 +61,9 @@ mapn('+',          increment_font_size,           '[GUI] Decrease font size')
 mapi('<C-->',      decrement_font_size,           '[GUI] Increase font size')
 mapi('<C-+>',      increment_font_size,           '[GUI] Decrease font size')
 
+
+mapn('<leader>fn', ":put=expand('%:t:r')<CR>", '[MISC] Paste finename of current buffer')
+
 -- Snitch
 --
 -- local ok, snitch = pcall(require, "custom.snitch")
@@ -92,17 +95,17 @@ mapv('<A-h>', ':MoveHBlock(-1)<CR>', '[Move] Move block left')
 map(  'n', '<leader>g', ':Neogit<CR>',                 '[Neogit] Open Neogit')
 map(  'n', '<C-n>',     ':NvimTreeFindFileToggle<CR>', '[NvimTree] Toggle NvimTree')
 
-mapn('<leader>ff',      '<cmd>lua require("telescope.builtin").find_files()<cr>', '[Telescope] Find files')
-mapn('<leader>fg',      '<cmd>lua require("telescope.builtin").git_files()<cr>',  '[Telescope] Find git files')
-mapn('<leader>fa',      '<cmd>lua require("telescope.builtin").live_grep()<cr>',  '[Telescope] Find string')
-mapn('<leader>fb',      '<cmd>lua require("telescope.builtin").buffers()<cr>',    '[Telescope] Find buffer')
-mapn('<leader>fh',      '<cmd>lua require("telescope.builtin").help_tags()<cr>',  '[Telescope] Find help')
-mapn('<leader>fr',      '<cmd>lua require("telescope.builtin").oldfiles()<cr>',   '[Telescope] Find recent')
+mapn('<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<cr>',                       '[Telescope] Find files')
+mapn('<leader>fg', '<cmd>lua require("telescope.builtin").git_files()<cr>',                        '[Telescope] Find git files')
+mapn('<leader>fa', '<cmd>lua require("telescope").extensions.live_grep_args.live_grep_args()<cr>', '[Telescope] Find string')
+mapn('<leader>fb', '<cmd>lua require("telescope.builtin").buffers()<cr>',                          '[Telescope] Find buffer')
+mapn('<leader>fh', '<cmd>lua require("telescope.builtin").help_tags()<cr>',                        '[Telescope] Find help')
+mapn('<leader>fr', '<cmd>lua require("telescope.builtin").oldfiles()<cr>',                         '[Telescope] Find recent')
 
 mapn('<space>q',   vim.diagnostic.setloclist,                 '[LSP] Send diagnostics to loclist')
 mapn('<space>e',   vim.diagnostic.open_float,                 '[LSP] Open floating window with diagnostic')
 
-mapn('<space>gh', '<cmd>Lspsaga lsp_finder<CR>',              '[LSP] Open finder')
+mapn('<space>gh', '<cmd>Lspsaga finder<CR>',              '[LSP] Open finder')
 mapn('[d',        '<cmd>Lspsaga diagnostic_jump_prev<CR>',    '[LSP] Goto previous diagnostic')
 mapn(']d',        '<cmd>Lspsaga diagnostic_jump_next<CR>',    '[LSP] Goto next diagnostic')
 
@@ -135,7 +138,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     mapn('<space>D',     vim.lsp.buf.type_definition,                            '[LSP] Open type definition',    opts)
 
     mapn('<space>wl',    function () print(vim.inspect(vim.lsp.buf.list_workspace_folders)) end, '[LSP] List workspace folders',  opts)
-    mapn('<space>f',     function () require'custom.lsp-stuff'.lsp_formatting(ev.buf) end,       '[LSP] Format buffer',           opts)
+    mapn('<space>bf',    function () require'custom.lsp-stuff'.lsp_formatting(ev.buf) end,       '[LSP] Format buffer',           opts)
   end,
 })
 
