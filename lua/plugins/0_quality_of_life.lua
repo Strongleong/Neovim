@@ -12,11 +12,43 @@ return {
   { 'kylechui/nvim-surround',            config = true },
   { 'phaazon/hop.nvim',                  config = true },
   { 'williamboman/mason-lspconfig.nvim', config = true },
-  { 'j-hui/fidget.nvim',                 config = true, tag = 'legacy' },
+  { "johmsalas/text-case.nvim",          config = true },
+  { 'j-hui/fidget.nvim',                 config = true,   tag = 'legacy' },
   { 'kyazdani42/nvim-web-devicons',      lazy = true },
 
   {
     'alexghergh/nvim-tmux-navigation',
     config = { disable_when_zoomed = true }
   },
+
+  {
+    "nvim-neorg/neorg",
+    build = ":Neorg sync-parsers",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "3rd/image.nvim",
+    },
+    config = function()
+      require("neorg").setup {
+        load = {
+          ["core.defaults"] = {}, -- Loads default behaviour
+          ["core.concealer"] = {}, -- Adds pretty icons to your documents
+          ["core.dirman"] = { -- Manages Neorg workspaces
+            config = {
+              workspaces = {
+                notes = "~/notes",
+              },
+            },
+          },
+        },
+      }
+    end,
+  },
+
+  {
+    "3rd/image.nvim",
+    config = {
+      backend = "ueberzug"
+    }
+  }
 }
