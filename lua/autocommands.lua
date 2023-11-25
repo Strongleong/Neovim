@@ -190,8 +190,8 @@ local autoCommands = {
       events = 'FileType',
       opts   = {
         pattern = { 'pov' },
-        command = 'set filetype=html',
-        desc    = 'Inc files are html'
+        command = 'set filetype=php',
+        desc    = 'Inc files are php'
       },
     },
 
