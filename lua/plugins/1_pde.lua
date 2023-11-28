@@ -35,6 +35,7 @@ return {
 			local masonlspconfig = require("mason-lspconfig")
 			local lspconfig      = require("lspconfig")
 			local cmp_nvim_lsp   = require("cmp_nvim_lsp")
+			local lib						 = require("custom.lib")
 
 			local config         = {
 				virtual_text = true,
@@ -74,28 +75,27 @@ return {
 
 			for _, server in pairs(servers) do
 				local ok, settings = pcall(require, "lsp.servers." .. server)
-				local srv_config = {}
+				local srv_config = {
+					on_attach = on_attach,
+					capabilities = capabilities
+				}
 
 				if server == 'tsserver' or server == 'volar' then
 					capabilities.textDocument.formatting = false
 				end
 
-				if not ok then
-					srv_config = {
-						on_attach = on_attach,
-						capabilities = capabilities,
-					}
-				else
-					srv_config = {
-						on_attach = on_attach,
-						capabilities = capabilities,
-						settings = settings.settings,
-						filetypes = settings.filetypes
-					}
+				if ok then
+					lib.tableMerge(srv_config, settings)
 				end
 
 				lspconfig[server].setup(srv_config)
 			end
+
+			local conf = lib.tableMerge(require("lsp.servers.omnisharp"), {
+				on_attach = on_attach,
+				capabilities = capabilities
+			})
+			lspconfig.omnisharp.setup(conf)
 		end
 	},
 
@@ -109,6 +109,9 @@ return {
 		config = {
 			symbol_in_winbar = {
 				enable = true
+			},
+			outline = {
+				detail = false,
 			}
 		}
 	},

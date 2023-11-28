@@ -1,12 +1,10 @@
 return {
+  filetypes = { 'php', 'inc' },
   settings = {
     intelephense = {
       environment = {
-        phpVersion = "5.5.30",
+        phpVersion = "7.4",
         shortOpenTag = false,
-        includePath = {
-          "/home/strongleong/projects/sakh.com/sakh.com/"
-        }
       },
       telemetry = false,
       stubs = {
@@ -34,6 +32,7 @@ return {
         "hash",
         "iconv",
         "imap",
+        "imagick",
         "intl",
         "json",
         "ldap",
