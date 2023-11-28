@@ -82,6 +82,9 @@ vim.cmd('let &t_8b = "\\<Esc>[48:2:%lu:%lu:%lum"')
 -- They are here because plugins spec looks less bloated this way and they
 -- do not break neovim configuration if these plugins are not installed.
 
+-- nvim-ts-context-commentstring
+vim.g.skip_ts_context_commentstring_module = true
+
 -- XkbSwitch Settings
 vim.g.XkbSwitchEnabled            = 1
 vim.g.XkbSwitchIMappings          = {'ru'}
