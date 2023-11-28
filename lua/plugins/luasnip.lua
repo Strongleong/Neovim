@@ -54,6 +54,11 @@ return {
     vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
     vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
 
+    luasnip.config.set_config({
+      enable_autosnippets = true,
+      update_events = 'TextChanged,TextChangedI'
+    })
+
     -- TODO: lua-snippets.Make `snippets.lua` and dump every snippet there.
     --       Don't bother with `snippets/a.lua`
     require("luasnip/loaders/from_vscode").lazy_load()
