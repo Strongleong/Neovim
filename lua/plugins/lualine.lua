@@ -39,6 +39,13 @@ return {
       tabline = {},
       extensions = {
         "nvim-tree",
+        "fzf",
+        "lazy",
+        "man",
+        "mason",
+        "nvim-dap-ui",
+        "trouble",
+        "quickfix"
       },
     }
 }
