@@ -1,10 +1,10 @@
 return {
   s(
-    "lzget",
+    "lz",
     fmta(
       [[
       /** @var <> $<> */
-      private <> $<>;
+      private $<>;
 
       /**
        * @return <>
@@ -21,7 +21,6 @@ return {
       {
         i(1, "Type"),
         i(2, "var"),
-        rep(1),
         rep(2),
         rep(1),
         rep(1),
