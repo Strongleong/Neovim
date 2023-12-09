@@ -48,11 +48,6 @@ mapn('<S-Tab>',    ':bprevious<CR>',              '[Buffer] Previous buffer')
 
 mapn('<Leader>ve', ':tabnew ~/.config/nvim/<CR>', '[Config] Quick edit of config')
 
-mapn('<C-Left>',   ':vertical resize +3<CR>',     '[Resize] Increase pane height')
-mapn('<C-Right>',  ':vertical resize -3<CR>',     '[Resize] Decrease pane height')
-mapn('<C-Up>',     ':resize +3<CR>',              '[Resize] Increase pane width')
-mapn('<C-Down>',   ':resize -3<CR>',              '[Resize] Decrease pane width')
-
 mapv('>',          '>gv',                         '[Indent] Indent in visual mode vithout leaving to normal mode')
 mapv('<',          '<gv',                         '[Indent] Unindent in visual mode vithout leaving to normal mode')
 
@@ -62,7 +57,7 @@ mapi('<C-->',      decrement_font_size,           '[GUI] Increase font size')
 mapi('<C-+>',      increment_font_size,           '[GUI] Decrease font size')
 
 
-mapn('<leader>fn', ":put=expand('%:t:r')<CR>", '[MISC] Paste finename of current buffer')
+mapn('<leader>fn', "i <C-R>=expand('%:t:r')<CR>", '[MISC] Paste finename of current buffer')
 
 -- Snitch
 --
@@ -71,16 +66,26 @@ mapn('<leader>fn', ":put=expand('%:t:r')<CR>", '[MISC] Paste finename of current
 --   mapn('<leader>s', snitch, '[Snitch] Get all TODO\'s')
 -- end
 
-local status_ok, tmux = pcall(require, "nvim-tmux-navigation")
+local status_ok, smartSplits = pcall(require, "smart-splits")
 if status_ok then
-  mapn('<C-h>',     tmux.NvimTmuxNavigateLeft,       '[Navigation] Move focus left' )
-  mapn('<C-j>',     tmux.NvimTmuxNavigateDown,       '[Navigation] Move focus down' )
-  mapn('<C-k>',     tmux.NvimTmuxNavigateUp,         '[Navigation] Move focus up' )
-  mapn('<C-l>',     tmux.NvimTmuxNavigateRight,      '[Navigation] Move focus Right' )
-  mapn('<C-\\>',    tmux.NvimTmuxNavigateLastActive, '[Navigation] Move focus last active' )
-  mapn('<C-Space>', tmux.NvimTmuxNavigateNext,       '[Navigation] Move focus next' )
+  mapn('<C-A-h>',           smartSplits.resize_left,       '[SmartSplits] Resize buffer left')
+  mapn('<C-A-j>',           smartSplits.resize_down,       '[SmartSplits] Resize buffer down')
+  mapn('<C-A-k>',           smartSplits.resize_up,         '[SmartSplits] Resize buffer up')
+  mapn('<C-A-l>',           smartSplits.resize_right,      '[SmartSplits] Resize buffer right')
+
+  mapn('<leader>r',         smartSplits.start_resize_mode, '[SmartSplits] Start resize mode')
+
+  mapn('<C-h>',             smartSplits.move_cursor_left,  '[SmartSplits] Move to left buffer')
+  mapn('<C-j>',             smartSplits.move_cursor_down,  '[SmartSplits] Move to down buffer')
+  mapn('<C-k>',             smartSplits.move_cursor_up,    '[SmartSplits] Move to up buffer')
+  mapn('<C-l>',             smartSplits.move_cursor_right, '[SmartSplits] Move to right buffer')
+
+  mapn('<leader><leader>h', smartSplits.swap_buf_left,     '[SmartSplits] Swap buffer left')
+  mapn('<leader><leader>j', smartSplits.swap_buf_down,     '[SmartSplits] Swap buffer down')
+  mapn('<leader><leader>k', smartSplits.swap_buf_up,       '[SmartSplits] Swap buffer up')
+  mapn('<leader><leader>l', smartSplits.swap_buf_right,    '[SmartSplits] Swap buffer right')
 else
-  vim.notify('Error. nvim-tmux-navigation is not installed')
+  vim.notify('Error. smart-splits is not installed')
 end
 
 mapn('<A-j>', ':MoveLine(1)<CR>',    '[Move] Move line down')
@@ -92,8 +97,8 @@ mapv('<A-k>', ':MoveBlock(-1)<CR>',  '[Move] Move block up')
 mapv('<A-l>', ':MoveHBlock(1)<CR>',  '[Move] Move block right')
 mapv('<A-h>', ':MoveHBlock(-1)<CR>', '[Move] Move block left')
 
-map(  'n', '<leader>g', ':Neogit<CR>',                 '[Neogit] Open Neogit')
-map(  'n', '<C-n>',     ':NvimTreeFindFileToggle<CR>', '[NvimTree] Toggle NvimTree')
+mapn('<leader>g', ':Neogit<CR>',                 '[Neogit] Open Neogit')
+mapn('<C-n>',     ':NvimTreeFindFileToggle<CR>', '[NvimTree] Toggle NvimTree')
 
 mapn('<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<cr>',                       '[Telescope] Find files')
 mapn('<leader>fg', '<cmd>lua require("telescope.builtin").git_files()<cr>',                        '[Telescope] Find git files')

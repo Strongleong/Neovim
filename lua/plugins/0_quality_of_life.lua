@@ -17,8 +17,10 @@ return {
   { 'kyazdani42/nvim-web-devicons',      lazy = true },
 
   {
-    'alexghergh/nvim-tmux-navigation',
-    config = { disable_when_zoomed = true }
+    'mrjones2014/smart-splits.nvim',
+    config = {
+      disable_multiplexer_nav_when_zoomed = true,
+    }
   },
 
   {
@@ -26,7 +28,7 @@ return {
     build = ":Neorg sync-parsers",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "3rd/image.nvim",
+      -- "3rd/image.nvim",
     },
     config = function()
       require("neorg").setup {
@@ -45,10 +47,10 @@ return {
     end,
   },
 
-  {
-    "3rd/image.nvim",
-    config = {
-      backend = "ueberzug"
-    }
-  }
+  -- {
+  --   "3rd/image.nvim",
+  --   config = {
+  --     backend = "ueberzug"
+  --   }
+  -- }
 }
