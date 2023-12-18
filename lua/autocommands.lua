@@ -119,7 +119,25 @@ local autoCommands = {
       opts   = {
         pattern = { '*.ASM' },
         command = 'set ft=asm',
-        desc    = 'Uppercase asm is pepole too'
+        desc    = 'Uppercase asm are pepole too'
+      },
+    },
+
+    {
+      events = { 'BufNewFile', 'BufRead' },
+      opts   = {
+        pattern = { 'env', 'env.example' },
+        command = 'set ft=sh',
+        desc    = '.env files are not always starts with dot. Sometimes.'
+      },
+    },
+
+    {
+      events = { 'BufNewFile', 'BufRead' },
+      opts   = {
+        pattern = { 'php.example' },
+        command = 'set ft=php',
+        desc    = 'Example files for some configis for PHP projects'
       },
     },
 
