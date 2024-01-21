@@ -13,7 +13,7 @@ return {
   { 'phaazon/hop.nvim',                  config = true },
   { 'williamboman/mason-lspconfig.nvim', config = true },
   { "johmsalas/text-case.nvim",          config = true },
-  { 'j-hui/fidget.nvim',                 config = true,   tag = 'legacy' },
+  { 'j-hui/fidget.nvim',                 config = true, tag = 'legacy' },
   { 'kyazdani42/nvim-web-devicons',      lazy = true },
 
   {
@@ -33,9 +33,9 @@ return {
     config = function()
       require("neorg").setup {
         load = {
-          ["core.defaults"] = {}, -- Loads default behaviour
+          ["core.defaults"] = {},  -- Loads default behaviour
           ["core.concealer"] = {}, -- Adds pretty icons to your documents
-          ["core.dirman"] = { -- Manages Neorg workspaces
+          ["core.dirman"] = {      -- Manages Neorg workspaces
             config = {
               workspaces = {
                 notes = "~/notes",
@@ -45,6 +45,15 @@ return {
         },
       }
     end,
+  },
+
+  {
+    'gbprod/substitute.nvim',
+    config = {
+      range = {
+        prefix = "cp"
+      }
+    }
   },
 
   -- {

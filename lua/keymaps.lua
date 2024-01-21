@@ -28,6 +28,10 @@ local function mapv(keys, command, description, additional)
   map('v', keys, command, description, additional)
 end
 
+local function mapx(keys, command, description, additional)
+  map('x', keys, command, description, additional)
+end
+
 local function adjust_font_size(amount)
   local font_full = vim.api.nvim_get_option('guifont')
   local font, size = string.match(font_full, "(.*):h(.*)")
@@ -100,19 +104,25 @@ mapv('<A-h>', ':MoveHBlock(-1)<CR>', '[Move] Move block left')
 mapn('<leader>g', ':Neogit<CR>',                 '[Neogit] Open Neogit')
 mapn('<C-n>',     ':NvimTreeFindFileToggle<CR>', '[NvimTree] Toggle NvimTree')
 
+-- Telescope
+
 mapn('<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<cr>',                       '[Telescope] Find files')
+mapn('<leader>fi', '<cmd>lua require("telescope.builtin").find_files() no_ignore=true<cr>',        '[Telescope] Find files without ignore')
 mapn('<leader>fg', '<cmd>lua require("telescope.builtin").git_files()<cr>',                        '[Telescope] Find git files')
 mapn('<leader>fa', '<cmd>lua require("telescope").extensions.live_grep_args.live_grep_args()<cr>', '[Telescope] Find string')
 mapn('<leader>fb', '<cmd>lua require("telescope.builtin").buffers()<cr>',                          '[Telescope] Find buffer')
 mapn('<leader>fh', '<cmd>lua require("telescope.builtin").help_tags()<cr>',                        '[Telescope] Find help')
 mapn('<leader>fr', '<cmd>lua require("telescope.builtin").oldfiles()<cr>',                         '[Telescope] Find recent')
+mapn('<leader>fm', '<cmd>lua require("telescope.builtin").man_pages()<cr>',                        '[Telescope] Find map pages')
 
-mapn('<space>q',   vim.diagnostic.setloclist,                 '[LSP] Send diagnostics to loclist')
-mapn('<space>e',   vim.diagnostic.open_float,                 '[LSP] Open floating window with diagnostic')
+-- LSP
 
-mapn('<space>gh', '<cmd>Lspsaga finder<CR>',              '[LSP] Open finder')
-mapn('[d',        '<cmd>Lspsaga diagnostic_jump_prev<CR>',    '[LSP] Goto previous diagnostic')
-mapn(']d',        '<cmd>Lspsaga diagnostic_jump_next<CR>',    '[LSP] Goto next diagnostic')
+mapn('<leader>q',  vim.diagnostic.setloclist,               '[LSP] Send diagnostics to loclist')
+mapn('<leader>e',  vim.diagnostic.open_float,               '[LSP] Open floating window with diagnostic')
+
+mapn('<leader>gh', '<cmd>Lspsaga finder<CR>',               '[LSP] Open finder')
+mapn('[d',         '<cmd>Lspsaga diagnostic_jump_prev<CR>', '[LSP] Goto previous diagnostic')
+mapn(']d',         '<cmd>Lspsaga diagnostic_jump_next<CR>', '[LSP] Goto next diagnostic')
 
 -- Only jump to error
 
@@ -124,7 +134,6 @@ mapn("]D", function()
 end,     '[LSP] Jump to next error')
 
 mapn('<space>o',  '<cmd>Lspsaga outline<CR>',         '[LSP] Open outline'            )
-mapn('K',         '<cmd>Lspsaga hover_doc<CR>',       '[LSP] Open hover window'       )
 mapn('gp',        '<cmd>Lspsaga peek_definition<CR>', '[LSP] Peek definition'         )
 mapn('<space>rn', '<cmd>Lspsaga rename<CR>"',         '[LSP] Rename selected element' )
 mapn('<space>ca', '<cmd>Lspsaga code_action<CR>',     '[LSP] Open code action pop-up' )
@@ -147,24 +156,20 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-mapn('t<C-n>', ':TestNearest<CR>', '[VimTest] Test nearset case')
-mapn('t<C-f>', ':TestFile<CR>',    '[VimTest] Test file')
-mapn('t<C-l>', ':TestLast<CR>',    '[VimTest] Test last case')
-mapn('t<C-a>', ':TestSuite<CR>',   '[VimTest] Test suite')
-mapn('t<C-v>', ':TestVisit<CR>',   '[VimTest] Test case under cursor')
+-- QuickFix
 
-mapn('<leader>lo', '<cmd>lua require"qf".open("l")<CR>',        '[QuicFix] Open location list')
-mapn('<leader>lc', '<cmd>lua require"qf".close("l")<CR>',       '[QuicFix] Close location list')
-mapn('<leader>ll', '<cmd>lua require"qf".toggle("l",true)<CR>', '[QuicFix] Toggle location list and stay in current window')
-mapn('<leader>co', '<cmd>lua require"qf".open("c")<CR>',        '[QuicFix] Open quickfix list')
-mapn('<leader>cc', '<cmd>lua require"qf".close("c")<CR>',       '[QuicFix] Close quickfix list')
-mapn('<leader>cl', '<cmd>lua require"qf".toggle("c",true)<CR>', '[QuicFix] Toggle quickfix list and stay in current window')
-mapn('<leader>j',  '<cmd>lua require"qf".below("l")<CR>',       '[QuicFix] Go to next location list entry from cursor')
-mapn('<leader>k',  '<cmd>lua require"qf".above("l")<CR>',       '[QuicFix] Go to previous location list entry from cursor')
-mapn('<leader>J',  '<cmd>lua require"qf".below("c")<CR>',       '[QuicFix] Go to next quickfix entry from cursor')
-mapn('<leader>K',  '<cmd>lua require"qf".above("c")<CR>',       '[QuicFix] Go to previous quickfix entry from cursor')
-mapn(']q',         '<cmd>lua require"qf".below("visible")<CR>', '[QuicFix] Go to next entry from cursor in visible list')
-mapn('[q',         '<cmd>lua require"qf".above("visible")<CR>', '[QuicFix] Go to previous entry from cursor in visible list')
+mapn('<leader>lo', '<cmd>lua require"qf".open("l")<CR>',        '[QuickFix] Open location list')
+mapn('<leader>lc', '<cmd>lua require"qf".close("l")<CR>',       '[QuickFix] Close location list')
+mapn('<leader>ll', '<cmd>lua require"qf".toggle("l",true)<CR>', '[QuickFix] Toggle location list and stay in current window')
+mapn('<leader>co', '<cmd>lua require"qf".open("c")<CR>',        '[QuickFix] Open quickfix list')
+mapn('<leader>cc', '<cmd>lua require"qf".close("c")<CR>',       '[QuickFix] Close quickfix list')
+mapn('<leader>cl', '<cmd>lua require"qf".toggle("c",true)<CR>', '[QuickFix] Toggle quickfix list and stay in current window')
+mapn('<leader>j',  '<cmd>lua require"qf".below("l")<CR>',       '[QuickFix] Go to next location list entry from cursor')
+mapn('<leader>k',  '<cmd>lua require"qf".above("l")<CR>',       '[QuickFix] Go to previous location list entry from cursor')
+mapn('<leader>J',  '<cmd>lua require"qf".below("c")<CR>',       '[QuickFix] Go to next quickfix entry from cursor')
+mapn('<leader>K',  '<cmd>lua require"qf".above("c")<CR>',       '[QuickFix] Go to previous quickfix entry from cursor')
+mapn(']q',         '<cmd>lua require"qf".below("visible")<CR>', '[QuickFix] Go to next entry from cursor in visible list')
+mapn('[q',         '<cmd>lua require"qf".above("visible")<CR>', '[QuickFix] Go to previous entry from cursor in visible list')
 
 local dap
 status_ok, dap = pcall(require, 'dap')
@@ -191,32 +196,15 @@ else
 end
 
 -- Hop.nvim
-mapa('f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR,  current_line_only = true })<cr>", '[HOP] Jump to symbol')
-mapa('F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", '[HOP] Jump back to symbol')
+mapa('f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR,  current_line_only = true })<cr>",                   '[HOP] Jump to symbol')
+mapa('F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>",                   '[HOP] Jump back to symbol')
 mapa('t', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR,  current_line_only = true, hint_offset = -1 })<cr>", '[HOP] Jump before symbol')
 mapa('T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = -1 })<cr>", '[HOP] Jump back before symbol')
-
-map('', '<leader>e', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", '[HOP] Jump to word')
+mapa('<leader>jw', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", '[HOP] Jump to word')
 
 -- EasyAlign
 map('x', 'ga', '<Plug>(EasyAlign)', '[EasyAlign] Start interactive EasyAlign in visual mode')
 mapn('ga', '<Plug>(EasyAlign)', '[EasyAlign] Start interactive EasyAlign for a motion/text object')
-
-
--- ToggleTerm
-mapn('<space>tb', ':ToggleTerm direction=horizontal<CR>', '[ToggleTerm] Open terminal below')
-mapn('<space>tl', ':ToggleTerm direction=vertical<CR>',   '[ToggleTerm] Open terminal left')
-
-function _G.set_terminal_keymaps()
-  local opts = {buffer = 0}
-  map('t', '<C-h>', [[<Cmd>wincmd h<CR>]], '[ToggleTerm] Go to left pane',  opts)
-  map('t', '<C-j>', [[<Cmd>wincmd j<CR>]], '[ToggleTerm] Go to down pane',  opts)
-  map('t', '<C-k>', [[<Cmd>wincmd k<CR>]], '[ToggleTerm] Go to up pane',    opts)
-  map('t', '<C-l>', [[<Cmd>wincmd l<CR>]], '[ToggleTerm] Go to right pane', opts)
-end
-
-vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
-
 
 -- Bufdelete
 status_ok, _ = pcall(require, 'bufdelete')
@@ -228,20 +216,32 @@ else
   mapn('<leader>w', '<cmd>bw<CR>', 'Wipe buffer')
 end
 
+-- Substitute.nvim
+local substitute
+status_ok, substitute = pcall(require, 'substitute')
+if status_ok then
+  mapn('cp',  substitute.operator, '[Substitute] Substitute operator')
+  mapn('cpp', substitute.line,     '[Substitute] Substitute line')
+  mapn('cP',  substitute.eol,      '[Substitute] Substitute until end of line')
+  mapx('cp',  substitute.visual,   '[Substitute] Substitute in visual mode')
+
+  local subsrange = require'substitute.range'
+  mapn('<Leader>cp',  subsrange.operator, '[Substitute] Substitute ranged operator')
+  mapx('<Leader>cp',  subsrange.visual,   '[Substitute] Substitute ranged in visual mode')
+  mapn('<Leader>cpp', subsrange.word,     '[Substitute] Substitute ranged word')
+
+  local subsex = require'substitute.exchange'
+  mapn('cpx',  subsex.operator, '[Substitute] Exchange operator')
+  mapn('cppx', subsex.line,     '[Substitute] Exchange line')
+  mapx('cpx',  subsex.visual,   '[Substitute] Exchange in visual mode')
+  mapn('cpxc', subsex.cancel,   '[Substitute] Exchange cancel')
+end
+
 -- Hard mode :D
 map({'n', 'v'}, '<Up>',    '<Nop>', '[Hard mode :D] Disable UP key')
 map({'n', 'v'}, '<Down>',  '<Nop>', '[Hard mode :D] Disable DOWN key')
 map({'n', 'v'}, '<Left>',  '<Nop>', '[Hard mode :D] Disable LEFT key')
 map({'n', 'v'}, '<Right>', '<Nop>', '[Hard mode :D] Disable RIGHT key')
-
--- CP command
-vim.cmd([[
-nmap <silent> cp :set opfunc=ChangePaste<CR>g@
-function! ChangePaste(type, ...)
-    silent exe "normal! `[v`]\"_c"
-    silent exe "normal! p"
-endfunction
-]])
 
 --------------- Callbacks for plugins `on_attach` functions ---------------
 
@@ -258,6 +258,18 @@ M.nvim_tree = function (bufnr)
   mapn('o',    api.node.open.edit,             '[NVIM-TREE] Open',                 opts)
   mapn('h',    api.node.navigate.parent_close, '[NVIM-TREE] Close Directory',      opts)
   mapn('v',    api.node.open.vertical,         '[NVIM-TREE] Open: Vertical Split', opts)
+end
+
+
+M.mapHoverLsp = function ()
+  mapn('K', '<cmd>Lspsaga hover_doc<CR>', '[LSP] Open hover window')
+end
+
+M.mapHoverLsp()
+
+-- dapui
+M.mapHoverDap = function()
+  mapn('K', '<Cmd>lua require("dap.ui.widgets").hover()<CR>', '[DAP] hover var')
 end
 
 return M

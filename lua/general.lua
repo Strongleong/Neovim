@@ -44,7 +44,7 @@ vim.opt.signcolumn     = 'yes'                        -- Always show the sign co
 vim.opt.wrap           = false                        -- Display lines as one long line
 vim.opt.scrolloff      = 8                            -- Do not wait cursor at bottom to scroll
 vim.opt.sidescrolloff  = 8                            -- Same as previous but horizontaly
-vim.opt.guifont        = 'RobotoMono Nerd Font:h11'   -- The font used in graphical neovim (gnvim/neovide/etc.) applications
+vim.opt.guifont        = 'UbuntuMono Nerd Font:h11'   -- The font used in graphical neovim (gnvim/neovide/etc.) applications
 
 -- I like when my home folder is clean. XDG rules!
 local homePath    = os.getenv('HOME')

@@ -3,7 +3,7 @@ return {
   settings = {
     intelephense = {
       environment = {
-        phpVersion = "7.4",
+        phpVersion = "8.0",
         shortOpenTag = false,
       },
       telemetry = false,

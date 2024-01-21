@@ -57,15 +57,15 @@ return {
 		dashboard.opts.opts.noautocmd = true
 		alpha.setup(dashboard.opts)
 
-		if vim.o.filetype == "lazy" then
-			vim.cmd.close()
-			vim.api.nvim_create_autocmd("User", {
-				pattern = "AlphaReady",
-				callback = function()
-					require("lazy").show()
-				end,
-			})
-		end
+		-- if vim.o.filetype == "lazy" then
+		-- 	vim.cmd.close()
+		-- 	vim.api.nvim_create_autocmd("User", {
+		-- 		pattern = "AlphaReady",
+		-- 		callback = function()
+		-- 			require("lazy").show()
+		-- 		end,
+		-- 	})
+		-- end
 
 		alpha.setup(dashboard.opts)
 	end

@@ -1,7 +1,6 @@
 return {
   'L3MON4D3/LuaSnip',
   dependencies = {
-    'mattn/emmet-vim',
     'rafamadriz/friendly-snippets',
     'hrsh7th/nvim-cmp',
     'saadparwaiz1/cmp_luasnip',

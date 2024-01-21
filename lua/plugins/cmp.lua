@@ -10,6 +10,7 @@ return {
         'hrsh7th/cmp-emoji',        -- Markdown emoji completions
         'saadparwaiz1/cmp_luasnip', -- Snippet completions
         'L3MON4D3/LuaSnip',         -- Snippets engine
+        'rcarriga/cmp-dap',         -- Completions for DAP repl
     },
     config = function()
         local cmp = require("cmp")
@@ -135,7 +136,12 @@ return {
                 get_commit_characters = function(_)
                     return {}
                 end
-            }
+            },
+
+            enabled = function()
+                return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+                    or require("cmp_dap").is_dap_buffer()
+            end
         })
 
         cmp.setup.cmdline(':', {
@@ -148,6 +154,12 @@ return {
         cmp.setup.cmdline('/', {
             sources = {
                 { name = 'buffer' }
+            },
+        })
+
+        cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+            sources = {
+                { name = "dap" },
             },
         })
     end

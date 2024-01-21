@@ -142,6 +142,15 @@ local autoCommands = {
     },
 
     {
+      events = { 'BufNewFile', 'BufRead' },
+      opts   = {
+        pattern = { '*.php.example' },
+        command = 'set ft=php',
+        desc    = 'php.example files are .php files anyways'
+      },
+    },
+
+    {
       events = 'FileType',
       opts   = {
         pattern = 'python',

@@ -35,7 +35,7 @@ return {
 			local masonlspconfig = require("mason-lspconfig")
 			local lspconfig      = require("lspconfig")
 			local cmp_nvim_lsp   = require("cmp_nvim_lsp")
-			local lib						 = require("custom.lib")
+			local lib            = require("custom.lib")
 
 			local config         = {
 				virtual_text = true,
@@ -116,4 +116,33 @@ return {
 		}
 	},
 
+	{
+		"nvim-neotest/neotest",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-treesitter/nvim-treesitter",
+
+			"Issafalcon/neotest-dotnet",
+			"olimorris/neotest-phpunit",
+		},
+
+		config = function()
+			require 'neotest'.setup({
+				adapters = {
+					require 'neotest-phpunit',
+					require 'neotest-dotnet'({
+						discovery_root = "solution"
+					}),
+				}
+			})
+		end
+	},
+
+	{
+		"folke/trouble.nvim",
+		dependencies = {
+			"nvim-tree/nvim-web-devicons"
+		},
+	}
 }
