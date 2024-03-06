@@ -92,16 +92,23 @@ else
   vim.notify('Error. smart-splits is not installed')
 end
 
-mapn('<A-j>', ':MoveLine(1)<CR>',    '[Move] Move line down')
-mapn('<A-k>', ':MoveLine(-1)<CR>',   '[Move] Move line up')
-mapn('<A-l>', ':MoveHChar(1)<CR>',   '[Move] Move char right')
-mapn('<A-h>', ':MoveHChar(-1)<CR>',  '[Move] Move char left')
-mapv('<A-j>', ':MoveBlock(1)<CR>',   '[Move] Move block down')
-mapv('<A-k>', ':MoveBlock(-1)<CR>',  '[Move] Move block up')
-mapv('<A-l>', ':MoveHBlock(1)<CR>',  '[Move] Move block right')
-mapv('<A-h>', ':MoveHBlock(-1)<CR>', '[Move] Move block left')
+mapn('<A-j>',      ':MoveLine(1)<CR>',    '[Move] Move line down')
+mapn('<A-k>',      ':MoveLine(-1)<CR>',   '[Move] Move line up')
+mapn('<A-l>',      ':MoveHChar(1)<CR>',   '[Move] Move char right')
+mapn('<A-h>',      ':MoveHChar(-1)<CR>',  '[Move] Move char left')
+mapn('<leader>wf', ':MoveWord(1)<CR>',    '[Move] Move word right')
+mapn('<leader>wb', ':MoveWord(-1)<CR>',   '[Move] Move word left')
+mapv('<A-j>',      ':MoveBlock(1)<CR>',   '[Move] Move block down')
+mapv('<A-k>',      ':MoveBlock(-1)<CR>',  '[Move] Move block up')
+mapv('<A-l>',      ':MoveHBlock(1)<CR>',  '[Move] Move block right')
+mapv('<A-h>',      ':MoveHBlock(-1)<CR>', '[Move] Move block left')
 
-mapn('<leader>g', ':Neogit<CR>',                 '[Neogit] Open Neogit')
+-- mapn('<leader>g', ':Neogit<CR>',                 '[Neogit] Open Neogit')
+
+-- NeogitRel
+mapn('<leader>g', ":NeogitRel<CR>", '[Neogit] Open Neogit')
+
+
 mapn('<C-n>',     ':NvimTreeFindFileToggle<CR>', '[NvimTree] Toggle NvimTree')
 
 -- Telescope

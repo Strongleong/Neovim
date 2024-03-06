@@ -5,15 +5,33 @@ return {
   'tpope/vim-repeat',
   'famiu/bufdelete.nvim',
   'junegunn/vim-easy-align',
-  'fedepujol/move.nvim',
-  'lyokha/vim-xkbswitch',
+  {
+    'fedepujol/move.nvim',
+    config = {
+      line = {
+        enable = true, -- Enables line movement
+        indent = true  -- Toggles indentation
+      },
+      block = {
+        enable = true, -- Enables block movement
+        indent = true  -- Toggles indentation
+      },
+      word = {
+        enable = true, -- Enables word movement
+      },
+      char = {
+        enable = true -- Enables char movement
+      }
+    }
+  },
+  -- 'lyokha/vim-xkbswitch',
 
   { 'norcalli/nvim-colorizer.lua',       config = true },
   { 'kylechui/nvim-surround',            config = true },
   { 'phaazon/hop.nvim',                  config = true },
   { 'williamboman/mason-lspconfig.nvim', config = true },
   { "johmsalas/text-case.nvim",          config = true },
-  { 'j-hui/fidget.nvim',                 config = true, tag = 'legacy' },
+  { 'j-hui/fidget.nvim',                 config = true },
   { 'kyazdani42/nvim-web-devicons',      lazy = true },
 
   {
