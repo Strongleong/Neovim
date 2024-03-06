@@ -14,6 +14,14 @@ return {
                 disable = function(_, bufnr) -- Disable in large buffers
                     return vim.api.nvim_buf_line_count(bufnr) > 50000
                 end,
+
+                is_supported = function ()
+                    if vim.fn.strwidth(vim.fn.getline('.')) > 300 or vim.fn.getfsize(vim.fn.expand('%')) > 1024 * 1024 then
+                        return false
+                    else
+                        return true
+                    end
+                end
             },
             incremental_selection = {
                 enable = true,
