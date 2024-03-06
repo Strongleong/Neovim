@@ -100,3 +100,14 @@ end
 vim.g.easy_align_delimiters = {
   p = { pattern = '/\\$/', }
 }
+
+-- Register excommand that opens Neogit from the current file
+-- The command takes one argument which is passed to Neogit
+vim.api.nvim_create_user_command(
+  'NeogitRel', -- Name of the command
+  function(opts)
+    -- Call the local function with the argument
+    require'custom.lib'.open_neogit_from_current_file(opts.args[1])
+  end,
+  { nargs = '?' } -- Specifies that the command takes one argument
+)
