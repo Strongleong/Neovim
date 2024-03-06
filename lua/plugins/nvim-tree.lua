@@ -12,13 +12,13 @@ return {
       icons = {
         glyphs = {
           git = {
-            unstaged = "",
-            staged = "S",
-            unmerged = "",
-            renamed = "➜",
-            deleted = "",
-            untracked = "★",
-            ignored = "◌",
+            unstaged  = "",
+            staged    = "",
+            unmerged  = "",
+            renamed   = "",
+            untracked = "",
+            deleted   = "",
+            ignored   = "",
           },
         }
       }
@@ -27,10 +27,10 @@ return {
       enable = true,
       show_on_dirs = true,
       icons = {
-        hint = "",
-        info = "",
+        hint    = "",
+        info    = "",
         warning = "",
-        error = "",
+        error   = "",
       },
     },
   }
