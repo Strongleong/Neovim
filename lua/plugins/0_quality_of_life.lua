@@ -24,7 +24,6 @@ return {
       }
     }
   },
-  -- 'lyokha/vim-xkbswitch',
 
   { 'norcalli/nvim-colorizer.lua',       config = true },
   { 'kylechui/nvim-surround',            config = true },

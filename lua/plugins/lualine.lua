@@ -1,9 +1,6 @@
 return {
   'nvim-lualine/lualine.nvim',
   event = "VeryLazy",
-  dependencies = {
-    'lyokha/vim-xkbswitch',
-  },
   config = {
       options = {
         icons_enabled = true,
@@ -17,9 +14,6 @@ return {
         lualine_b = {
           "branch",
           "diff",
-          function ()
-            return vim.api.nvim_eval("libcall(g:XkbSwitchLib, 'Xkb_Switch_getXkbLayout', '')")
-          end,
         },
         lualine_c = {
           {

@@ -85,17 +85,6 @@ vim.cmd('let &t_8b = "\\<Esc>[48:2:%lu:%lu:%lum"')
 -- nvim-ts-context-commentstring
 vim.g.skip_ts_context_commentstring_module = true
 
--- XkbSwitch Settings
-vim.g.XkbSwitchEnabled            = 1
-vim.g.XkbSwitchIMappings          = {'ru'}
-vim.g.XkbSwitchIminsertToggleEcho = 0
-
--- Yeah, I know that I already checked for window, but I think
--- that keeping settings for XkbSwitch together is better (English is hard)
-if is_windows then
-  vim.g.XkbSwitchLib = 'D:\\lib\\libxkbswitch64.dll'
-end
-
 -- VimEasyAlign
 vim.g.easy_align_delimiters = {
   p = { pattern = '/\\$/', }
