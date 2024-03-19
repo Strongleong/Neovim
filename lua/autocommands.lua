@@ -292,12 +292,43 @@ local autoCommands = {
     {
       events = "TermOpen",
       opts = {
-          command = 'setlocal nonumber norelativenumber',
-          desc    = 'Disable line numbers in terminal'
+        command = 'setlocal nonumber norelativenumber',
+        desc    = 'Disable line numbers in terminal'
+      }
+    }
+  },
+
+  Lsp = {
+    {
+      events = "LspAttach",
+      opts = {
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+          if client.server_capabilities then
+            create_autocmd({
+              Lsp = {
+                {
+                  events = "CursorHold",
+                  opts = {
+                    callback = vim.lsp.buf.document_highlight,
+                    desc     = "LSP documnt highlight"
+                  }
+                },
+                {
+                  events = "CursorMoved",
+                  opts = {
+                    callback = vim.lsp.buf.clear_references,
+                    desc     = "LSP clear documnt highlight"
+                  }
+                },
+              }
+            })
+          end
+        end
       }
     }
   }
-
 }
 
 create_autocmd(autoCommands)
