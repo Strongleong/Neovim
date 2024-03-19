@@ -19,6 +19,17 @@ return {
       commit_editor = {
         kind = 'split',
       },
+      mappings = {
+        status = {
+          ["q"] = function ()
+            if vim.g.neogit then
+              vim.cmd(":qa!")
+            end
+
+            require'neogit'.close()
+          end
+        }
+      },
     },
   },
 
