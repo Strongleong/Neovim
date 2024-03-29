@@ -73,6 +73,13 @@ return {
     }
   },
 
+  {
+    'LunarVim/bigfile.nvim',
+    config = true
+  },
+
+  'RRethy/vim-illuminate',
+
   -- {
   --   "3rd/image.nvim",
   --   config = {
