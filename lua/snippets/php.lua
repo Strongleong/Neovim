@@ -111,4 +111,15 @@ return {
     )
   ),
   s("log", fmt("Logger::getInstance()->log(${});", { i(0) })),
+  s("acl",
+    fmt(
+      [[
+      env()->getResponse()->setJsonResponse(true);
+      env()->getResponse()->setAjaxDebuggingEnabled(true);
+      env()->getResponse()->setContent([${}]);
+      env()->getResponse()->send();
+      env()->shutdown();
+      ]],
+      { i(0) }
+    )),
 }
