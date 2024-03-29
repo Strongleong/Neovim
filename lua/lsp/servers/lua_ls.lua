@@ -3,6 +3,16 @@
 return {
   settings = {
     Lua = {
+      runtime = {
+        version = "LuaJIT"
+      },
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME,
+          '~/.local/share/nvim/lazy/dracula',
+        },
+      },
       diagnostics = {
         globals = {
           'vim',
@@ -37,7 +47,13 @@ return {
       },
       telemetry = {
         enable = false,
-      }
+      },
+      hint = {
+        enable = true,
+      },
+      completion = {
+        callSnippet = 'Replace',
+      },
     }
   }
 }

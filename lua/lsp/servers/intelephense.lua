@@ -2,11 +2,20 @@ return {
   filetypes = { 'php', 'inc' },
   settings = {
     intelephense = {
+      files = {
+        maxSize = 1000000000,
+        associations = {"*.php","*.phtml", "*.inc"},
+      },
       environment = {
         phpVersion = "8.0",
         shortOpenTag = false,
       },
-      telemetry = false,
+      telemetry = {
+        enabled = false,
+      },
+      phpdoc = {
+        returnVoid = false,
+      },
       stubs = {
         "apache",
         "bcmath",
