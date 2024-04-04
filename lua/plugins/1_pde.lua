@@ -74,6 +74,10 @@ return {
 			end
 
 			for _, server in pairs(servers) do
+				if server == 'rust_analyzer' then
+					goto continue
+				end
+
 				local ok, settings = pcall(require, "lsp.servers." .. server)
 				local srv_config = {
 					on_attach = on_attach,
@@ -89,6 +93,7 @@ return {
 				end
 
 				lspconfig[server].setup(srv_config)
+				::continue::
 			end
 
 			local conf = lib.tableMerge(require("lsp.servers.omnisharp"), {
@@ -144,5 +149,17 @@ return {
 		dependencies = {
 			"nvim-tree/nvim-web-devicons"
 		},
+	},
+
+	{
+		'mrcjkb/rustaceanvim',
+		version = '^4', -- Recommended
+		ft = { 'rust' },
+		config = function ()
+			vim.g.rustaceanvim = {
+				server = {
+				}
+			}
+		end
 	}
 }
