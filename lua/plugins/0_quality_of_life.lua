@@ -42,10 +42,9 @@ return {
 
   {
     "nvim-neorg/neorg",
-    build = ":Neorg sync-parsers",
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      -- "3rd/image.nvim",
+      "luarocks.nvim" ,
+      "3rd/image.nvim",
     },
     config = function()
       require("neorg").setup {
@@ -78,12 +77,21 @@ return {
     config = true
   },
 
-  'RRethy/vim-illuminate',
+  {
+    "vhyrro/luarocks.nvim",
+    priority = 1001, -- this plugin needs to run before anything else
+    opts = {
+      rocks = { "magick" },
+    },
+  },
 
-  -- {
-  --   "3rd/image.nvim",
-  --   config = {
-  --     backend = "ueberzug"
-  --   }
-  -- }
+  {
+    "3rd/image.nvim",
+    dependencies = { "luarocks.nvim" },
+    config = {
+      editor_only_render_when_focused = true,
+    },
+  },
+
+  'RRethy/vim-illuminate',
 }

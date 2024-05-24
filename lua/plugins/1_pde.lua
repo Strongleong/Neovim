@@ -37,7 +37,7 @@ return {
 			local cmp_nvim_lsp   = require("cmp_nvim_lsp")
 			local lib            = require("custom.lib")
 
-			local config         = {
+			local config = {
 				virtual_text = true,
 				update_in_insert = true,
 				underline = true,

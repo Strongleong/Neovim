@@ -27,8 +27,8 @@ return {
 
         },
         lualine_x = { "encoding", "fileformat", "filetype" },
-        lualine_y = { "progress" },
-        lualine_z = { "location", "diagnostics" },
+        lualine_y = { "diagnostics" },
+        lualine_z = { "progress", "location" },
       },
       tabline = {},
       extensions = {
