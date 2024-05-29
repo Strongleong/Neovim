@@ -7,7 +7,7 @@ return {
         associations = {"*.php","*.phtml", "*.inc"},
       },
       environment = {
-        phpVersion = "8.0",
+        phpVersion = "8.2",
         shortOpenTag = false,
       },
       telemetry = {

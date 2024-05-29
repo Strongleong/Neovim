@@ -16,7 +16,6 @@ return {
       commit_editor = {
         kind = 'split',
       },
-      -- Don't work scince neovim 0.10
       --[[ mappings = {
         status = {
           ["q"] = function ()

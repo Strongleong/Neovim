@@ -84,10 +84,6 @@ return {
 					capabilities = capabilities
 				}
 
-				if server == 'tsserver' or server == 'volar' then
-					capabilities.textDocument.formatting = false
-				end
-
 				if ok then
 					lib.tableMerge(srv_config, settings)
 				end
