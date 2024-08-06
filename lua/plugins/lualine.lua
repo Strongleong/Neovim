@@ -1,3 +1,11 @@
+local lint_progress = function()
+  local linters = require("lint").get_running()
+  if #linters == 0 then
+      return "󰦕"
+  end
+  return "󱉶 " .. table.concat(linters, ", ")
+end
+
 return {
   'nvim-lualine/lualine.nvim',
   event = "VeryLazy",
@@ -27,7 +35,7 @@ return {
 
         },
         lualine_x = { "encoding", "fileformat", "filetype" },
-        lualine_y = { "diagnostics" },
+        lualine_y = { "diagnostics", lint_progress },
         lualine_z = { "progress", "location" },
       },
       tabline = {},

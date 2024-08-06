@@ -151,6 +151,15 @@ local autoCommands = {
     },
 
     {
+      events = { 'BufNewFile', 'BufRead' },
+      opts   = {
+        pattern = { '*.c3' },
+        command = 'set ft=c3',
+        desc    = 'File type detection for c3 language'
+      },
+    },
+
+    {
       events = 'FileType',
       opts   = {
         pattern = 'python',
@@ -296,6 +305,18 @@ local autoCommands = {
         desc    = 'Disable line numbers in terminal'
       }
     }
+  },
+
+  Linters = {
+    {
+      events = { "BufWritePost", "BufRead" },
+      opts = {
+        callback = function ()
+          require'lint'.try_lint()
+        end,
+        desc = 'Setup linters'
+      }
+    },
   },
 }
 

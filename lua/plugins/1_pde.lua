@@ -3,29 +3,35 @@ return {
 		'williamboman/mason.nvim',
 		dependencies = {
 			'williamboman/mason-lspconfig.nvim',
+			'mfussenegger/nvim-lint',
+			'mhartington/formatter.nvim',
+			'rshkarin/mason-nvim-lint',
 		},
-		config = true,
-	},
-
-	{
-		"jay-babu/mason-null-ls.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		dependencies = {
-			"williamboman/mason.nvim",
-			"jose-elias-alvarez/null-ls.nvim",
-		},
-		config = function()
-			require("null-ls").setup()
-			require("mason-null-ls").setup({
-				automatic_setup = true,
-				handlers = {}
+		config = function ()
+			require'mason'.setup()
+			require('lint').linters_by_ft = {
+				markdown = {'vale'},
+				php = {'phpcs'},
+				dockerfile = {'hadolint'},
+				json = {'jsonlint'},
+			}
+			require'mason-nvim-lint'.setup()
+			require'formatter'.setup({
+				filetype = {
+					php = {
+						require('formatter.filetypes.php').phpcbf
+					}
+				}
 			})
 		end,
 	},
 
+	{ 'folke/neodev.nvim', setup = true },
+
 	{
 		'neovim/nvim-lspconfig',
 		dependencies = {
+			'folke/neodev.nvim',
 			'hrsh7th/cmp-nvim-lsp',
 			'williamboman/mason.nvim',
 			'williamboman/mason-lspconfig.nvim',
