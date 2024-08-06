@@ -44,7 +44,7 @@ return {
     "nvim-neorg/neorg",
     dependencies = {
       "luarocks.nvim" ,
-      "3rd/image.nvim",
+      -- "3rd/image.nvim",
     },
     config = function()
       require("neorg").setup {
@@ -85,13 +85,19 @@ return {
     },
   },
 
-  {
-    "3rd/image.nvim",
-    dependencies = { "luarocks.nvim" },
-    config = {
-      editor_only_render_when_focused = true,
-    },
-  },
+  -- {
+  --   "3rd/image.nvim",
+  --   dependencies = { "luarocks.nvim" },
+  --   config = {
+  --     editor_only_render_when_focused = true,
+  --   },
+  -- },
 
   'RRethy/vim-illuminate',
+
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = true,
+  },
 }
