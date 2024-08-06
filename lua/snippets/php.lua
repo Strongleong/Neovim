@@ -121,5 +121,11 @@ return {
       env()->shutdown();
       ]],
       { i(0) }
-    )),
+    )
+  ),
+  s("show_errors", {
+    t({"ini_set('display_errors', '1');", "" }),
+    t({"ini_set('display_startup_errors', '1');", "" }),
+    t({"error_reporting(E_ALL);                ", "" })
+  }),
 }
