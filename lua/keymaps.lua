@@ -33,7 +33,7 @@ local function mapx(keys, command, description, additional)
 end
 
 local function adjust_font_size(amount)
-  local font_full = vim.api.nvim_get_option('guifont')
+  local font_full = vim.api.nvim_get_option_value('guifont', {})
   local font, size = string.match(font_full, "(.*):h(.*)")
   size = size + amount
   vim.opt.guifont = font .. ":h" .. size

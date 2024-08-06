@@ -2,10 +2,12 @@ return {
   {
     'NeogitOrg/neogit',
     dependencies = {
-      'sindrets/diffview.nvim',
       'nvim-lua/plenary.nvim',
+      'sindrets/diffview.nvim',
+      'nvim-telescope/telescope.nvim',
     },
     config = {
+      graph_style = "unicode",
       git_services = {
         ["git.sakh.com"] = "https://git.sakh.com/${owner}/${repository}/compare/${branch_name}",
       },
@@ -15,6 +17,7 @@ return {
       },
       commit_editor = {
         kind = 'split',
+        staged_diff_split_kind = "auto"
       },
       --[[ mappings = {
         status = {

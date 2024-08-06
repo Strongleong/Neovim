@@ -33,7 +33,7 @@ M.split = function(inputstr, sep)
     return res
 end
 
-M.is_windows = vim.loop.os_uname().sysname == "Windows_NT"
+M.is_windows = vim.uv.os_uname().sysname == "Windows_NT"
 
 M.tableMerge = function (t1, t2)
   for k,v in pairs(t2) do

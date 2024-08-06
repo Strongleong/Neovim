@@ -5,7 +5,7 @@ M.lsp_formatting = function(bufnr)
     bufnr = bufnr,
     async = true,
     filter = function(client)
-      for _, x in pairs(vim.lsp.get_active_clients()) do
+      for _, x in pairs(vim.lsp.get_clients()) do
         print(x.name)
         if x.name == 'null-ls' then
           return client.name == 'null-ls'
