@@ -9,7 +9,7 @@ end
 return {
   'nvim-lualine/lualine.nvim',
   event = "VeryLazy",
-  config = {
+  opts = {
       options = {
         icons_enabled = true,
         component_separators = { left = "", right = "" },

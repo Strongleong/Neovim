@@ -47,7 +47,7 @@ vim.opt.sidescrolloff  = 8                            -- Same as previous but ho
 vim.opt.guifont        = 'UbuntuMono Nerd Font:h11'   -- The font used in graphical neovim (gnvim/neovide/etc.) applications
 
 -- I like when my home folder is clean. XDG rules!
-local homePath    = os.getenv('HOME')
+local homePath = os.getenv('HOME')
 if homePath ~= nil then
   vim.opt.undodir   = homePath .. '/.local/nvim/undo'
   vim.opt.shadafile = homePath .. '/.local/nvim/shadafile'

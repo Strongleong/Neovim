@@ -11,13 +11,13 @@ return {
 		local make_cmd  = vim.api.nvim_create_user_command
 
 		function RandomTitle()
-			local header = headers.get_random(dashboard.section.header.val)
+			local header = headers.getRandom(dashboard.section.header.val)
 			SetHeader(header)
 		end
 
 		function Title(opts)
 			local headerName = opts.args
-			local header = headers.setHeader(headerName)
+			local header = headers.headers[headerName]
 			SetHeader(header)
 		end
 
@@ -55,18 +55,6 @@ return {
 		dashboard.section.footer.opts.hl           = "Comment"
 
 		dashboard.opts.opts.noautocmd = true
-		alpha.setup(dashboard.opts)
-
-		-- if vim.o.filetype == "lazy" then
-		-- 	vim.cmd.close()
-		-- 	vim.api.nvim_create_autocmd("User", {
-		-- 		pattern = "AlphaReady",
-		-- 		callback = function()
-		-- 			require("lazy").show()
-		-- 		end,
-		-- 	})
-		-- end
-
 		alpha.setup(dashboard.opts)
 	end
 }

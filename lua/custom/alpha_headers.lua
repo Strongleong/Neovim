@@ -268,7 +268,7 @@ module.headers = {
   },
 }
 
-module.get_random = function(current)
+module.getRandom = function(current)
   local keyset = {}
   local len = 0
 

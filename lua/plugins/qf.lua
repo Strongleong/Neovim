@@ -1,7 +1,6 @@
 return {
   'ten3roberts/qf.nvim',
-  config = {
-    -- Location list configuration
+  opts = { -- Location list configuration
     l = {
       auto_close = true, -- Automatically close location/quickfix list if empty
       auto_follow = 'prev', -- Follow current entry, possible values: prev,next,nearest, or false to disable

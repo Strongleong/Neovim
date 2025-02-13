@@ -5,6 +5,7 @@ return {
     'hrsh7th/nvim-cmp',
     'saadparwaiz1/cmp_luasnip',
   },
+  run = 'make install_jsregexp',
   config = function()
     local luasnip = require('luasnip')
     local cmp = require("cmp")

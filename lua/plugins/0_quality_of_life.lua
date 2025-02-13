@@ -7,7 +7,7 @@ return {
   'junegunn/vim-easy-align',
   {
     'fedepujol/move.nvim',
-    config = {
+    opts = {
       line = {
         enable = true, -- Enables line movement
         indent = true  -- Toggles indentation
@@ -25,47 +25,24 @@ return {
     }
   },
 
-  { 'norcalli/nvim-colorizer.lua',       config = true },
-  { 'kylechui/nvim-surround',            config = true },
-  { 'phaazon/hop.nvim',                  config = true },
-  { 'williamboman/mason-lspconfig.nvim', config = true },
-  { "johmsalas/text-case.nvim",          config = true },
-  { 'j-hui/fidget.nvim',                 config = true },
+  { 'norcalli/nvim-colorizer.lua',       opts = {} },
+  { 'kylechui/nvim-surround',            opts = {} },
+  { 'phaazon/hop.nvim',                  opts = {} },
+  { 'williamboman/mason-lspconfig.nvim', opts = {} },
+  { "johmsalas/text-case.nvim",          opts = {} },
+  { 'j-hui/fidget.nvim',                 opts = {} },
   { 'kyazdani42/nvim-web-devicons',      lazy = true },
 
   {
     'mrjones2014/smart-splits.nvim',
-    config = {
+    opts = {
       disable_multiplexer_nav_when_zoomed = true,
     }
   },
 
   {
-    "nvim-neorg/neorg",
-    dependencies = {
-      "luarocks.nvim" ,
-      -- "3rd/image.nvim",
-    },
-    config = function()
-      require("neorg").setup {
-        load = {
-          ["core.defaults"] = {},  -- Loads default behaviour
-          ["core.concealer"] = {}, -- Adds pretty icons to your documents
-          ["core.dirman"] = {      -- Manages Neorg workspaces
-            config = {
-              workspaces = {
-                notes = "~/notes",
-              },
-            },
-          },
-        },
-      }
-    end,
-  },
-
-  {
     'gbprod/substitute.nvim',
-    config = {
+    opts = {
       range = {
         prefix = "cp"
       }
@@ -74,30 +51,39 @@ return {
 
   {
     'LunarVim/bigfile.nvim',
-    config = true
+    opts = {}
   },
-
-  {
-    "vhyrro/luarocks.nvim",
-    priority = 1001, -- this plugin needs to run before anything else
-    opts = {
-      rocks = { "magick" },
-    },
-  },
-
-  -- {
-  --   "3rd/image.nvim",
-  --   dependencies = { "luarocks.nvim" },
-  --   config = {
-  --     editor_only_render_when_focused = true,
-  --   },
-  -- },
 
   'RRethy/vim-illuminate',
 
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = true,
+    opts = {},
+  },
+
+  {
+    "smoka7/multicursors.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      'nvimtools/hydra.nvim',
+    },
+    opts = {},
+    cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' },
+    keys = {
+      {
+        mode = { 'v', 'n' },
+        '<Leader>m',
+        '<cmd>MCstart<cr>',
+        desc = 'Create a selection for selected text or word under the cursor',
+      },
+    },
+  },
+
+ {
+    "IogaMaster/neocord",
+    opts = {
+      debounce_timeout = 2,
+    }
   },
 }

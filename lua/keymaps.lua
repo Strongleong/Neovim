@@ -49,7 +49,6 @@ end
 
 mapn('<Tab>',      ':bnext<CR>',                  '[Buffer] Next buffer')
 mapn('<S-Tab>',    ':bprevious<CR>',              '[Buffer] Previous buffer')
-
 mapn('<Leader>ve', ':tabnew ~/.config/nvim/<CR>', '[Config] Quick edit of config')
 
 mapv('>',          '>gv',                         '[Indent] Indent in visual mode vithout leaving to normal mode')
@@ -59,7 +58,6 @@ mapn('-',          decrement_font_size,           '[GUI] Increase font size')
 mapn('+',          increment_font_size,           '[GUI] Decrease font size')
 mapi('<C-->',      decrement_font_size,           '[GUI] Increase font size')
 mapi('<C-+>',      increment_font_size,           '[GUI] Decrease font size')
-
 
 mapn('<leader>fn', "i <C-R>=expand('%:t:r')<CR>", '[MISC] Paste finename of current buffer')
 
@@ -133,12 +131,8 @@ mapn(']d',         '<cmd>Lspsaga diagnostic_jump_next<CR>', '[LSP] Goto next dia
 
 -- Only jump to error
 
-mapn("[D", function()
-  require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
-end,     '[LSP] Jump to previous error')
-mapn("]D", function()
-  require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
-end,     '[LSP] Jump to next error')
+mapn("[D", function() require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, '[LSP] Jump to previous error')
+mapn("]D", function() require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR }) end, '[LSP] Jump to next error')
 
 mapn('<space>o',  '<cmd>Lspsaga outline<CR>',         '[LSP] Open outline'            )
 mapn('gp',        '<cmd>Lspsaga peek_definition<CR>', '[LSP] Peek definition'         )
@@ -210,7 +204,7 @@ mapa('T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.Hint
 mapa('<leader>jw', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", '[HOP] Jump to word')
 
 -- EasyAlign
-map('x', 'ga', '<Plug>(EasyAlign)', '[EasyAlign] Start interactive EasyAlign in visual mode')
+mapx('ga', '<Plug>(EasyAlign)', '[EasyAlign] Start interactive EasyAlign in visual mode')
 mapn('ga', '<Plug>(EasyAlign)', '[EasyAlign] Start interactive EasyAlign for a motion/text object')
 
 -- Bufdelete

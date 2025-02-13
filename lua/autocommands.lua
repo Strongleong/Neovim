@@ -9,7 +9,7 @@ local function create_autocmd(definitions)
 end
 
 local autoCommands = {
-  Filetypes = {
+  NewFiletypes = {
     {
       events = { 'BufNewFile', 'BufRead' },
       opts   = {
@@ -159,6 +159,35 @@ local autoCommands = {
       },
     },
 
+    {
+      events = { 'BufNewFile', 'BufRead' },
+      opts   = {
+        pattern = { 'LICENSE' },
+        command = 'set ft=license',
+        desc    = 'Set correct filetype for license files'
+      },
+    },
+
+    {
+      events = { 'BufNewFile', 'BufRead' },
+      opts   = {
+        pattern = { '*/hypr/*.conf' },
+        command = 'set ft=hyprlang',
+        desc    = 'Set correct filetype for license files'
+      },
+    },
+
+    {
+      events = { 'BufNewFile', 'BufRead' },
+      opts   = {
+        pattern = { '*.MD' },
+        command = 'set ft=markdown',
+        desc    = 'Sometimes people create markdown files with capslock enabled I guess'
+      },
+    },
+  },
+
+  Filetypes = {
     {
       events = 'FileType',
       opts   = {

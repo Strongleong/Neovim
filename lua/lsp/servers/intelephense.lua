@@ -7,8 +7,11 @@ return {
         associations = {"*.php","*.phtml", "*.inc"},
       },
       environment = {
-        phpVersion = "8.2",
+        phpVersion = "8.3",
         shortOpenTag = false,
+        includePath = {
+          "/home/strongleong/projects/sakh.com/core/"
+        },
       },
       telemetry = {
         enabled = false,
@@ -44,6 +47,7 @@ return {
         "imagick",
         "intl",
         "json",
+        "meta",
         "ldap",
         "libxml",
         "mbstring",
@@ -84,6 +88,7 @@ return {
         "sysvshm",
         "tidy",
         "tokenizer",
+        "xdebug",
         "xml",
         "xmlreader",
         "xmlrpc",

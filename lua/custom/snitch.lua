@@ -20,7 +20,6 @@ local function snitch()
     command = 'snitch',
     args = { 'list' },
     cwd = vim.fn.getcwd(),
-    -- cwd = '/home/strongleong/projects/dom.sakh.com/',
     on_stdout = vim.schedule_wrap(function(error, data, _)
       vim.notify(data)
 

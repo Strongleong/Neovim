@@ -3,7 +3,7 @@ return {
   dependencies = {
     'kyazdani42/nvim-web-devicons',
   },
-  config = {
+  opts = {
     on_attach = require('keymaps').nvim_tree,
     renderer = {
       indent_markers = {
