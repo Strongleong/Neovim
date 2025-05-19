@@ -152,7 +152,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     mapn('<space>wr',    vim.lsp.buf.remove_workspace_folder,                    '[LSP] Remove workspace folder', opts)
     mapn('<space>D',     vim.lsp.buf.type_definition,                            '[LSP] Open type definition',    opts)
 
-    mapn('<space>wl',    function () print(vim.inspect(vim.lsp.buf.list_workspace_folders)) end, '[LSP] List workspace folders',  opts)
+    mapn('<space>wl',    function () print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, '[LSP] List workspace folders',  opts)
     mapn('<space>bf',    function () require'custom.lsp-stuff'.lsp_formatting(ev.buf) end,       '[LSP] Format buffer',           opts)
   end,
 })
