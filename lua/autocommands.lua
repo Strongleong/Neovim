@@ -185,6 +185,15 @@ local autoCommands = {
         desc    = 'Sometimes people create markdown files with capslock enabled I guess'
       },
     },
+
+    {
+      events = { 'BufNewFile', 'BufRead' },
+      opts   = {
+        pattern = { '*.yml' },
+        command = 'set ft=xml',
+        desc    = 'Yandex markup language is litterally XML'
+      },
+    },
   },
 
   Filetypes = {
