@@ -238,6 +238,8 @@ if status_ok then
   mapn('cpxc', subsex.cancel,   '[Substitute] Exchange cancel')
 end
 
+mapn('<Leader>x', '<cmd>Compile<CR>', '[Compile] Launch compilation mode')
+
 -- Hard mode :D
 map({'n', 'v'}, '<Up>',    '<Nop>', '[Hard mode :D] Disable UP key')
 map({'n', 'v'}, '<Down>',  '<Nop>', '[Hard mode :D] Disable DOWN key')
