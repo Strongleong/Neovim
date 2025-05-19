@@ -110,7 +110,7 @@ return {
       { i(0) }
     )
   ),
-  s("log", fmt("Logger::getInstance()->log(${});", { i(0) })),
+  s("log", fmt("\\SakhCom\\Core\\Debug\\Logger::getInstance()->log('{}', ${});", {i(1, 'Debug'), i(0) })),
   s("acl",
     fmt(
       [[
