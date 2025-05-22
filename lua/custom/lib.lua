@@ -35,25 +35,6 @@ end
 
 M.is_windows = vim.uv.os_uname().sysname == "Windows_NT"
 
-M.tableMerge = function (t1, t2)
-  for k,v in pairs(t2) do
-    if type(v) == "table" then
-      if type(t1[k] or false) == "table" then
-        t1[k] = M.tableMerge(t1[k] or {}, t2[k] or {})
-      else
-        t1[k] = v
-      end
-    else
-      if type(k) == "number" then
-        table.insert(t1, v)
-      else
-        t1[k] = v
-      end
-    end
-  end
-  return t1
-end
-
 M.find_git_root = function (filepath)
   local function get_folder_from_filepath(fp)
     return fp:match("(.*/)")

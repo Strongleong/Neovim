@@ -40,8 +40,21 @@ nightfox.setup({
   },
   palettes = {},
   specs = {},
-  groups = {},
+  groups = {
+    all = {
+      IlluminatedWordText = { gui = "underline", cterm = "underline" },
+      IlluminatedWordRead = { gui = "underline", cterm = "underline" },
+      IlluminatedWordWrite = { gui = "underline", cterm = "underline" },
+    }
+  },
 })
 
 -- setup must be called before loading
-vim.cmd("colorscheme nightfox")
+vim.cmd("colorscheme carbonfox")
+
+vim.cmd([[
+hi IlluminatedWordText gui=underline cterm=underline
+hi IlluminatedWordRead gui=underline cterm=underline
+hi IlluminatedWordWrite gui=underline cterm=underline
+]])
+

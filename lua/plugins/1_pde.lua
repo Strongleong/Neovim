@@ -7,16 +7,16 @@ return {
 			'mhartington/formatter.nvim',
 			'rshkarin/mason-nvim-lint',
 		},
-		config = function ()
-			require'mason'.setup()
+		config = function()
+			require 'mason'.setup()
 			require('lint').linters_by_ft = {
-				markdown   = {'vale'},
+				markdown   = { 'vale' },
 				-- php        = {'phpcs'},
-				dockerfile = {'hadolint'},
-				json       = {'jsonlint'},
+				dockerfile = { 'hadolint' },
+				json       = { 'jsonlint' },
 			}
-			require'mason-nvim-lint'.setup()
-			require'formatter'.setup({
+			require 'mason-nvim-lint'.setup()
+			require 'formatter'.setup({
 				filetype = {
 					php = {
 						require('formatter.filetypes.php').phpcbf
@@ -26,65 +26,69 @@ return {
 		end,
 	},
 
-	{ 'folke/lazydev.nvim', setup = true },
+	{
+		'folke/lazydev.nvim',
+		ft = "lua",
+		opts = {
+			library = {
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+			},
+			{ "nvim-dap-ui" },
+		},
+	},
 
 	{
 		'neovim/nvim-lspconfig',
 		dependencies = {
+			'saghen/blink.cmp',
 			'folke/lazydev.nvim',
-			'hrsh7th/cmp-nvim-lsp',
 			'williamboman/mason.nvim',
 			'williamboman/mason-lspconfig.nvim',
 			"b0o/schemastore.nvim",
 		},
 		config = function()
-			local masonlspconfig = require("mason-lspconfig")
-			local lspconfig      = require("lspconfig")
-			local cmp_nvim_lsp   = require("cmp_nvim_lsp")
-			local lib            = require("custom.lib")
+			local mason  = require("mason-lspconfig")
+			local lsp    = require("lspconfig")
+			local blink  = require("blink.cmp")
 
+			--- @type vim.diagnostic.Opts
 			local config = {
-				virtual_text = true,
+				virtual_text     = true,
 				update_in_insert = true,
-				underline = true,
-				severity_sort = true,
-				float = {
+				underline        = true,
+				severity_sort    = true,
+				float            = {
 					focusable = false,
-					style = "minimal",
-					border = "single",
-					source = "always",
+					style     = "minimal",
+					border    = "single",
+					source    = true,
+				},
+				signs            = {
+					text = {
+						[vim.diagnostic.severity.ERROR] = "",
+						[vim.diagnostic.severity.WARN]  = "",
+						[vim.diagnostic.severity.INFO]  = "",
+						[vim.diagnostic.severity.HINT]  = "",
+					},
+					numhl = {
+						[vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+						[vim.diagnostic.severity.WARN]  = "DiagnosticSignWarn",
+						[vim.diagnostic.severity.INFO]  = "DiagnosticSignInfo",
+						[vim.diagnostic.severity.HINT]  = "DiagnosticSignHint",
+					}
 				},
 			}
 
 			vim.diagnostic.config(config)
-			vim.cmd([[
-				sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=
-				sign define DiagnosticSignWarn  text= texthl=DiagnosticSignWarn  linehl= numhl=
-				sign define DiagnosticSignInfo  text= texthl=DiagnosticSignInfo  linehl= numhl=
-				sign define DiagnosticSignHint  text= texthl=DiagnosticSignHint  linehl= numhl=
-			]])
 
+			local capabilities = blink.get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
+			local servers = mason.get_installed_servers()
 
-			vim.lsp.handlers["textDocument/hover"] = vim.lsp.buf.hover({
-				border = "none",
-			})
-
-			vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.buf.signature_help({
-				border = "none",
-			})
-
-			local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
-			local servers = masonlspconfig.get_installed_servers()
-
-			local on_attach = function(client, bufnr)
+			local on_attach = function(_, _)
 				-- keymaps.on_attach()
 			end
 
 			for _, server in pairs(servers) do
-				if server == 'rust_analyzer' then
-					goto continue
-				end
-
 				local ok, settings = pcall(require, "lsp.servers." .. server)
 				local srv_config = {
 					on_attach = on_attach,
@@ -92,19 +96,133 @@ return {
 				}
 
 				if ok then
-					lib.tableMerge(srv_config, settings)
+					srv_config = vim.tbl_deep_extend('force', srv_config, settings)
 				end
 
-				lspconfig[server].setup(srv_config)
-				::continue::
+				lsp[server].setup(srv_config)
 			end
-
-			local conf = lib.tableMerge(require("lsp.servers.omnisharp"), {
-				on_attach = on_attach,
-				capabilities = capabilities
-			})
-			lspconfig.omnisharp.setup(conf)
 		end
+	},
+
+	{
+		'saghen/blink.cmp',
+		dependencies = {
+			'rafamadriz/friendly-snippets',
+			'L3MON4D3/LuaSnip',
+			'folke/lazydev.nvim',
+		},
+		version = '1.*',
+		---@module 'blink.cmp'
+		---@type blink.cmp.Config
+		opts = {
+			keymap = {
+				preset = 'default',
+				['<CR>'] = { 'accept', 'fallback' },
+				['<C-p>'] = { 'show', 'select_prev', 'fallback_to_mappings' },
+				['<C-n>'] = { 'show', 'select_next', 'fallback_to_mappings' },
+			},
+			cmdline = {
+				completion = {
+					menu = {
+						auto_show = function(_)
+							return vim.fn.getcmdtype() == ':'
+								or vim.fn.getcmdtype() == '/'
+								or vim.fn.getcmdtype() == '?'
+						end,
+					},
+					preselect = false,
+				},
+				keymap = {
+					preset = 'default',
+					['<Tab>'] = { 'accept', 'fallback' },
+				}
+			},
+			signature = {
+				enabled = true,
+				window = {
+					show_documentation = false,
+				},
+			},
+			appearance = {
+				nerd_font_variant = 'mono'
+			},
+			completion = {
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 500,
+					treesitter_highlighting = false,
+				},
+				ghost_text = {
+					enabled = true,
+					show_with_menu = false,
+				},
+				menu = {
+					auto_show = false,
+					draw = {
+						columns = {
+							{ "kind_icon",  gap = 1 },
+							{ "label",      "label_description", gap = 1 },
+							{ "source_name" },
+						},
+						treesitter = { 'lsp' },
+						components = {
+							kind_icon = {
+								ellipsis = false,
+								text = function(ctx)
+									local icon = ctx.kind_icon
+									local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
+
+									if dev_icon then
+										icon = dev_icon
+									end
+
+									return icon .. ctx.icon_gap
+								end,
+								highlight = function(ctx)
+									local hl = ctx.kind_hl
+
+									if not vim.tbl_contains({ "Path" }, ctx.source_name) then
+										return hl
+									end
+
+									local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
+									if dev_icon then
+										hl = dev_hl
+									end
+
+									return hl
+								end,
+							},
+						},
+					},
+				},
+			},
+			snippets = { preset = 'luasnip' },
+			sources = {
+				default = { 'lsp', 'path', 'snippets', 'buffer' },
+				per_filetype = {
+					lua = { inherit_defaults = true, 'lazydev' },
+				},
+				providers = {
+					lazydev = {
+						name = "LazyDev",
+						module = "lazydev.integrations.blink",
+						score_offset = 100,
+					},
+					cmdline = {
+						min_keyword_length = function (ctx)
+							if ctx.mode == 'cmdline' and string.find(ctx.line, ' ') == nil then
+								return 3
+							end
+
+							return 0
+						end
+					},
+				},
+			},
+			fuzzy = { implementation = "prefer_rust_with_warning" },
+		},
+		opts_extend = { "sources.default" },
 	},
 
 	{
@@ -125,142 +243,41 @@ return {
 	},
 
 	{
-		"nvim-neotest/neotest",
+		'mfussenegger/nvim-dap',
 		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"antoinemadec/FixCursorHold.nvim",
-			"nvim-treesitter/nvim-treesitter",
-
-			"Issafalcon/neotest-dotnet",
-			"olimorris/neotest-phpunit",
+			'rcarriga/nvim-dap-ui',
+			'nvim-neotest/nvim-nio'
 		},
-
 		config = function()
-			require 'neotest'.setup({
-				adapters = {
-					require 'neotest-phpunit',
-					require 'neotest-dotnet'({
-						discovery_root = "solution"
-					}),
-				}
+			local dap, dapui = require('dap'), require("dapui")
+
+			dapui.setup()
+
+			dap.listeners.before.attach.dapui_config = function()
+				dapui.open()
+			end
+
+			dap.listeners.before.launch.dapui_config = function()
+				dapui.open()
+			end
+
+			dap.listeners.before.event_terminated.dapui_config = function()
+				dapui.close()
+			end
+
+			dap.listeners.before.event_exited.dapui_config = function()
+				dapui.close()
+			end
+
+			vim.api.nvim_create_autocmd('Filetype', {
+				pattern = 'dap-float',
+				command = 'nnoremap q :q<CR>',
 			})
 		end
 	},
 
 	{
-		"folke/trouble.nvim",
-		dependencies = {
-			"nvim-tree/nvim-web-devicons"
-		},
-		config = {}
-	},
-
-	{
-		'mrcjkb/rustaceanvim',
-		version = '^4', -- Recommended
-		ft = { 'rust' },
-		config = function ()
-			vim.g.rustaceanvim = {
-				server = {
-				}
-			}
-		end
-	},
-
-  {
-    'nvim-telescope/telescope-dap.nvim',
-    dependencies = {
-      'mfussenegger/nvim-dap',
-    }
-  },
-
-  {
-    'theHamsta/nvim-dap-virtual-text',
-    dependencies = {
-      'mfussenegger/nvim-dap',
-    },
-    opts = {},
-  },
-
-  {
-    'jay-babu/mason-nvim-dap.nvim',
-    dependencies = {
-      'williamboman/mason.nvim',
-      'mfussenegger/nvim-dap',
-    }
-  },
-
-  {
-    'LiadOz/nvim-dap-repl-highlights',
-    dependencies = {
-      'mfussenegger/nvim-dap',
-      'nvim-treesitter/nvim-treesitter'
-    },
-    opts = {},
-  },
-
-  {
-    'mfussenegger/nvim-dap',
-    dependencies = {
-      'rcarriga/nvim-dap-ui',
-      "nvim-neotest/nvim-nio"
-    },
-    config = function()
-      local dap = require('dap')
-      local keymaps = require'keymaps'
-
-      dap.listeners.after['event_initialized']['hoverer'] = function()
-        for _, buf in pairs(vim.api.nvim_list_bufs()) do
-          pcall(vim.api.nvim_buf_del_keymap, buf, 'n', 'K')
-        end
-
-        keymaps.mapHoverDap()
-      end
-
-      dap.listeners.after['event_terminated']['hoverer'] = function()
-        for _, buf in pairs(vim.api.nvim_list_bufs()) do
-          pcall(vim.api.nvim_buf_del_keymap, buf, 'n', 'K')
-        end
-
-        keymaps.mapHoverLsp()
-      end
-
-      dap.listeners.after['disconnect']['hoverer'] = function()
-        for _, buf in pairs(vim.api.nvim_list_bufs()) do
-          pcall(vim.api.nvim_buf_del_keymap, buf, 'n', 'K')
-        end
-
-        keymaps.mapHoverLsp()
-      end
-
-      local dapui = require("dapui")
-      dapui.setup()
-
-      dap.listeners.after['event_initialized']["dapui_config"] = function()
-        dapui.open()
-      end
-      dap.listeners.before['event_terminated']["dapui_config"] = function()
-        dapui.close()
-      end
-      dap.listeners.before['event_exited']["dapui_config"] = function()
-        dapui.close()
-      end
-      dap.listeners.before['disconnect']["dapui_config"] = function()
-        dapui.close()
-      end
-
-      vim.api.nvim_create_autocmd('Filetype', {
-        pattern = 'dap-float',
-        command = 'nnoremap q :q<CR>',
-      })
-
-      pcall(require, 'daps')
-      require('dap.ext.vscode').load_launchjs();
-    end
-  },
-
-	{
-		'pcyman/phptools.nvim',
-		setup = true
+		dir = "~/projects/strongleong/nvim/compmode.nvim/",
+		config = {},
 	}
 }

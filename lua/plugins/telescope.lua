@@ -54,6 +54,8 @@ return {
             telescope.load_extension('fzf')
             telescope.load_extension('live_grep_args');
             telescope.load_extension('dap');
+
+            require('keymaps').setup_telescope_keymaps()
         end
     },
 
