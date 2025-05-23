@@ -130,7 +130,11 @@ return {
 								or vim.fn.getcmdtype() == '?'
 						end,
 					},
-					preselect = false,
+					list = {
+						selection = {
+						preselect = false,
+						}
+					}
 				},
 				keymap = {
 					preset = 'default',
@@ -278,6 +282,8 @@ return {
 
 	{
 		dir = "~/projects/strongleong/nvim/compmode.nvim/",
-		config = {},
+		config = {
+			scroll_to_the_bottom = true
+		},
 	}
 }

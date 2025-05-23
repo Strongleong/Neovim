@@ -77,7 +77,6 @@ end
 vim.cmd('let &t_8f = "\\<Esc>[38:2:%lu:%lu:%lum"')
 vim.cmd('let &t_8b = "\\<Esc>[48:2:%lu:%lu:%lum"')
 
-
 -------------------------- Vim plugins settings --------------------------
 -- They are here because plugins spec looks less bloated this way and they
 -- do not break neovim configuration if these plugins are not installed.

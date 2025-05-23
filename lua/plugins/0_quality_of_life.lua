@@ -5,6 +5,7 @@ return {
   'tpope/vim-repeat',
   'famiu/bufdelete.nvim',
   'junegunn/vim-easy-align',
+
   {
     'fedepujol/move.nvim',
     opts = {
