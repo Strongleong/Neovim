@@ -143,19 +143,18 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- QuickFix
 
--- local qf = require("qf")
--- mapn('<leader>lo', function () qf.open("l") end,        '[QuickFix] Open location list')
--- mapn('<leader>lc', function () qf.close("l") end,       '[QuickFix] Close location list')
--- mapn('<leader>ll', function () qf.toggle("l",true) end, '[QuickFix] Toggle location list and stay in current window')
--- mapn('<leader>co', function () qf.open("c") end,        '[QuickFix] Open quickfix list')
--- mapn('<leader>cc', function () qf.close("c") end,       '[QuickFix] Close quickfix list')
--- mapn('<leader>cl', function () qf.toggle("c",true) end, '[QuickFix] Toggle quickfix list and stay in current window')
--- mapn('<leader>j',  function () qf.below("l") end,       '[QuickFix] Go to next location list entry from cursor')
--- mapn('<leader>k',  function () qf.above("l") end,       '[QuickFix] Go to previous location list entry from cursor')
--- mapn('<leader>J',  function () qf.below("c") end,       '[QuickFix] Go to next quickfix entry from cursor')
--- mapn('<leader>K',  function () qf.above("c") end,       '[QuickFix] Go to previous quickfix entry from cursor')
--- mapn(']q',         function () qf.below("visible") end, '[QuickFix] Go to next entry from cursor in visible list')
--- mapn('[q',         function () qf.above("visible") end, '[QuickFix] Go to previous entry from cursor in visible list')
+mapn('<leader>lo', '<cmd> lua require"qf".open("l")        <CR>', '[QuickFix] Open location list')
+mapn('<leader>lc', '<cmd> lua require"qf".close("l")       <CR>', '[QuickFix] Close location list')
+mapn('<leader>ll', '<cmd> lua require"qf".toggle("l",true) <CR>', '[QuickFix] Toggle location list and stay in current window')
+mapn('<leader>co', '<cmd> lua require"qf".open("c")        <CR>', '[QuickFix] Open quickfix list')
+mapn('<leader>cc', '<cmd> lua require"qf".close("c")       <CR>', '[QuickFix] Close quickfix list')
+mapn('<leader>cl', '<cmd> lua require"qf".toggle("c",true) <CR>', '[QuickFix] Toggle quickfix list and stay in current window')
+mapn('<leader>j',  '<cmd> lua require"qf".below("l")       <CR>', '[QuickFix] Go to next location list entry from cursor')
+mapn('<leader>k',  '<cmd> lua require"qf".above("l")       <CR>', '[QuickFix] Go to previous location list entry from cursor')
+mapn('<leader>J',  '<cmd> lua require"qf".below("c")       <CR>', '[QuickFix] Go to next quickfix entry from cursor')
+mapn('<leader>K',  '<cmd> lua require"qf".above("c")       <CR>', '[QuickFix] Go to previous quickfix entry from cursor')
+mapn(']q',         '<cmd> lua require"qf".below("visible") <CR>', '[QuickFix] Go to next entry from cursor in visible list')
+mapn('[q',         '<cmd> lua require"qf".above("visible") <CR>', '[QuickFix] Go to previous entry from cursor in visible list')
 
 local dap = require ('dap')
 

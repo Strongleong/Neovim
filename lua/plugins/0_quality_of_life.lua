@@ -69,4 +69,9 @@ return {
       debounce_timeout = 2,
     }
   },
+
+  {
+    'ten3roberts/qf.nvim',
+    opts = true
+  },
 }

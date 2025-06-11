@@ -344,18 +344,6 @@ local autoCommands = {
       }
     }
   },
-
-  Linters = {
-    {
-      events = { "BufWritePost", "BufRead" },
-      opts = {
-        callback = function ()
-          require'lint'.try_lint()
-        end,
-        desc = 'Setup linters'
-      }
-    },
-  },
 }
 
 create_autocmd(autoCommands)
