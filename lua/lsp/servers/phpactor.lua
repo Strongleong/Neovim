@@ -24,7 +24,7 @@ local function showWindow(title, syntax, contents)
         bot = "─",
     })
 
-    vim.api.nvim_buf_set_option(float.bufnr, "filetype", syntax)
+    vim.api.nvim_set_option_value("filetype", syntax, { buf = float.bufnr})
     vim.api.nvim_buf_set_lines(float.bufnr, 0, -1, false, out)
 end
 
@@ -42,5 +42,8 @@ function LspPhpactorStatus()
 end
 
 return {
-    filetypes = { "php" }
+    filetypes = { "php" },
+    workspace_folders = {
+        { uri = vim.uri_from_fname("/home/strongleong/projects/sakh.com/core"), name = "core" },
+    },
 }

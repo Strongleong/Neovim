@@ -3,14 +3,15 @@ return {
   settings = {
     intelephense = {
       files = {
-        maxSize = 1000000000,
-        associations = {"*.php","*.phtml", "*.inc"},
+        maxSize = 5000000,
+        associations = { "*.php", "*.phtml", "*.inc" },
       },
       environment = {
-        phpVersion = "8.3",
+        phpVersion = "8.0.5",
         shortOpenTag = false,
-        includePath = {
-          "/home/strongleong/projects/sakh.com/core/"
+        includePaths = {
+          "/home/strongleong/projects/sakh.com/core/system.php",
+          "/home/strongleong/projects/sakh.com/core/src",
         },
       },
       telemetry = {

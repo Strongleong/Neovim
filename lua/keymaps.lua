@@ -177,7 +177,7 @@ mapn('<Leader>dr', dap.repl.open,         '[DAP] Open repl')
 mapn('<Leader>dl', dap.run_last,          '[DAP] Run last')
 
 -- dapui
-mapn('<S-A-k>', require("dap.ui.widgets").hover, '[DAP] hover var')
+mapn('<Leader>k', require("dap.ui.widgets").hover, '[DAP] hover var')
 
 -- Hop.nvim
 local hop, hint = require("hop"), require("hop.hint")

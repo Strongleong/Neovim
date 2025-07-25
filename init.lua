@@ -1,4 +1,5 @@
 require('general')
 require('lazy-init')
 require('keymaps')
+require('commands')
 require('autocommands')

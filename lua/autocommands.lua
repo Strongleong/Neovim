@@ -186,14 +186,14 @@ local autoCommands = {
       },
     },
 
-    {
-      events = { 'BufNewFile', 'BufRead' },
-      opts   = {
-        pattern = { '*.yml' },
-        command = 'set ft=xml',
-        desc    = 'Yandex markup language is litterally XML'
-      },
-    },
+    -- {
+    --   events = { 'BufNewFile', 'BufRead' },
+    --   opts   = {
+    --     pattern = { '*.yml' },
+    --     command = 'set ft=xml',
+    --     desc    = 'Yandex markup language is litterally XML'
+    --   },
+    -- },
   },
 
   Filetypes = {
