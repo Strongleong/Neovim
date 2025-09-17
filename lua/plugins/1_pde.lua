@@ -9,6 +9,14 @@ return {
 	},
 
 	{
+		'rshkarin/mason-nvim-lint',
+		dependencies = {
+			"mfussenegger/nvim-lint",
+		},
+		setup = true,
+	},
+
+	{
 		'folke/lazydev.nvim',
 		ft = "lua",
 		opts = {
@@ -29,9 +37,10 @@ return {
 			"b0o/schemastore.nvim",
 		},
 		config = function()
-			local mason  = require("mason-lspconfig")
-			local lsp    = require("lspconfig")
-			local blink  = require("blink.cmp")
+			local mason = require("mason-lspconfig")
+			local blink = require("blink.cmp")
+
+			mason.setup({ automatic_enable = false })
 
 			--- @type vim.diagnostic.Opts
 			local config = {
@@ -81,7 +90,7 @@ return {
 					srv_config = vim.tbl_deep_extend('force', srv_config, settings)
 				end
 
-				lsp[server].setup(srv_config)
+				vim.lsp.config(server, srv_config)
 			end
 		end
 	},
@@ -108,8 +117,8 @@ return {
 					menu = {
 						auto_show = function(_)
 							return vim.fn.getcmdtype() == ':'
-								or vim.fn.getcmdtype() == '/'
-								or vim.fn.getcmdtype() == '?'
+									or vim.fn.getcmdtype() == '/'
+									or vim.fn.getcmdtype() == '?'
 						end,
 					},
 					list = {
@@ -196,7 +205,7 @@ return {
 						score_offset = 100,
 					},
 					cmdline = {
-						min_keyword_length = function (ctx)
+						min_keyword_length = function(ctx)
 							if ctx.mode == 'cmdline' and string.find(ctx.line, ' ') == nil then
 								return 3
 							end

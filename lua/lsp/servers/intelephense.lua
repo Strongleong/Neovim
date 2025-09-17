@@ -1,4 +1,4 @@
-return {
+local opts = {
   filetypes = { 'php', 'inc' },
   settings = {
     intelephense = {
@@ -7,12 +7,9 @@ return {
         associations = { "*.php", "*.phtml", "*.inc" },
       },
       environment = {
-        phpVersion = "8.0.5",
+        phpVersion = "8.3",
         shortOpenTag = false,
-        includePaths = {
-          "/home/strongleong/projects/sakh.com/core/system.php",
-          "/home/strongleong/projects/sakh.com/core/src",
-        },
+        includePaths = {},
       },
       telemetry = {
         enabled = false,
@@ -26,3 +23,9 @@ return {
     }
   }
 }
+
+if string.find(vim.fn.getcwd(), "sakh.com") then
+  opts.settings.intelephense.environment.includePaths = {"/home/strongleong/projects/sakh.com/core/",}
+end
+
+return opts
