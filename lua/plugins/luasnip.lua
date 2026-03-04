@@ -6,7 +6,7 @@ return {
     'saadparwaiz1/cmp_luasnip',
   },
   run = 'make install_jsregexp',
-  config = function()
+  opts = function()
     local luasnip = require('luasnip')
     local cmp = require("cmp")
 

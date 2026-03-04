@@ -5,7 +5,7 @@ return {
 			'mhartington/formatter.nvim',
 			'rshkarin/mason-nvim-lint',
 		},
-		config = true
+		opts = true
 	},
 
 	{
@@ -36,7 +36,7 @@ return {
 			'williamboman/mason-lspconfig.nvim',
 			"b0o/schemastore.nvim",
 		},
-		config = function()
+		init = function()
 			local mason = require("mason-lspconfig")
 			local blink = require("blink.cmp")
 
@@ -243,7 +243,7 @@ return {
 			'rcarriga/nvim-dap-ui',
 			'nvim-neotest/nvim-nio'
 		},
-		config = function()
+		init = function()
 			local dap, dapui = require('dap'), require("dapui")
 
 			dapui.setup()
@@ -264,7 +264,7 @@ return {
 				dapui.close()
 			end
 
-			vim.api.nvim_create_autocmd('Filetype', {
+			vim.api.nvim_create_autocmd('FileType', {
 				pattern = 'dap-float',
 				command = 'nnoremap q :q<CR>',
 			})
@@ -272,8 +272,8 @@ return {
 	},
 
 	{
-		dir = "~/projects/strongleong/nvim/compmode.nvim/",
-		config = {
+		url = "git@github.com:Strongleong/compmode.nvim",
+		opts = {
 			scroll_to_the_bottom = true
 		},
 	}

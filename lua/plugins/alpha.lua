@@ -4,7 +4,7 @@ return {
 	dependencies = {
 		'kyazdani42/nvim-web-devicons',
 	},
-	config = function()
+	init = function()
 		local alpha     = require("alpha")
 		local dashboard = require("alpha.themes.dashboard")
 		local headers   = require("custom.alpha_headers")

@@ -8,9 +8,6 @@ return {
     },
     opts = {
       graph_style = "unicode",
-      git_services = {
-        ["git.sakh.com"] = "https://git.sakh.com/${owner}/${repository}/compare/${branch_name}",
-      },
       integrations = {
         diffview = true,
         telescope = true,

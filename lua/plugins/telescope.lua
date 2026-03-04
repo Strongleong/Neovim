@@ -7,7 +7,7 @@ return {
             'nvim-telescope/telescope-dap.nvim',
             { "nvim-telescope/telescope-live-grep-args.nvim", version = "^1.0.0" },
         },
-        config = function()
+        opts = function()
             local telescope = require("telescope")
             local tactions = require("telescope.actions")
             local lga_actions = require("telescope-live-grep-args.actions")
@@ -64,7 +64,6 @@ return {
         dependencies = {
             'nvim-telescope/telescope.nvim',
         },
-        build =
-        'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+        build = 'make'
     },
 }

@@ -2,7 +2,7 @@ return {
     {
         'JoosepAlviste/nvim-ts-context-commentstring',
         lazy = false,
-        config = function ()
+        opts = function()
             local tcc = require('ts_context_commentstring')
             tcc.setup()
         end
@@ -14,7 +14,7 @@ return {
             'JoosepAlviste/nvim-ts-context-commentstring',
         },
         lazy = false,
-        config = function ()
+        opts = function()
             local comment = require("Comment")
             comment.setup {
                 -- I left default keymaps here so I can find them without google
@@ -41,5 +41,3 @@ return {
         end,
     },
 }
-
-

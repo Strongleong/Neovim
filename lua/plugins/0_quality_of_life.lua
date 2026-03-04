@@ -84,13 +84,24 @@ return {
     }
   },
 
-  { 'norcalli/nvim-colorizer.lua',       opts = {} },
+  { 'catgoose/nvim-colorizer.lua',       opts = {} },
   { 'kylechui/nvim-surround',            opts = {} },
   { 'phaazon/hop.nvim',                  opts = {} },
   { 'williamboman/mason-lspconfig.nvim', opts = {} },
   { "johmsalas/text-case.nvim",          opts = {} },
-  { 'j-hui/fidget.nvim',                 opts = {} },
-  { 'kyazdani42/nvim-web-devicons',      lazy = true },
+
+  {
+    'j-hui/fidget.nvim',
+    opts = {
+      notification = {
+        window = {
+          avoid = { 'NvimTree' },
+        },
+      },
+    },
+  },
+
+  { 'kyazdani42/nvim-web-devicons', lazy = true },
 
   {
     'mrjones2014/smart-splits.nvim',
@@ -109,8 +120,7 @@ return {
   },
 
   {
-    'LunarVim/bigfile.nvim',
-    opts = {}
+    'pteroctopus/faster.nvim',
   },
 
   'RRethy/vim-illuminate',
