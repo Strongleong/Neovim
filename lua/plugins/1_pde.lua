@@ -115,17 +115,13 @@ return {
 			cmdline = {
 				completion = {
 					menu = {
-						auto_show = function(_)
-							return vim.fn.getcmdtype() == ':'
-									or vim.fn.getcmdtype() == '/'
-									or vim.fn.getcmdtype() == '?'
-						end,
+						auto_show = true
 					},
 					list = {
 						selection = {
 							preselect = false,
 						}
-					}
+					},
 				},
 				keymap = {
 					preset = 'default',
@@ -204,15 +200,7 @@ return {
 						module = "lazydev.integrations.blink",
 						score_offset = 100,
 					},
-					cmdline = {
-						min_keyword_length = function(ctx)
-							if ctx.mode == 'cmdline' and string.find(ctx.line, ' ') == nil then
-								return 3
-							end
-
-							return 0
-						end
-					},
+					cmdline = {},
 				},
 			},
 			fuzzy = { implementation = "prefer_rust_with_warning" },
@@ -272,9 +260,9 @@ return {
 	},
 
 	{
-		url = "git@github.com:Strongleong/compmode.nvim",
+		"Strongleong/compmode.nvim",
 		opts = {
-			scroll_to_the_bottom = true
+			scroll_output = true
 		},
 	}
 }
