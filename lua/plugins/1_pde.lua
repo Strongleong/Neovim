@@ -40,7 +40,6 @@ return {
 			local mason = require("mason-lspconfig")
 			local blink = require("blink.cmp")
 
-			mason.setup({ automatic_enable = false })
 
 			--- @type vim.diagnostic.Opts
 			local config = {
@@ -75,14 +74,9 @@ return {
 			local capabilities = blink.get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
 			local servers = mason.get_installed_servers()
 
-			local on_attach = function(_, _)
-				-- keymaps.on_attach()
-			end
-
 			for _, server in pairs(servers) do
 				local ok, settings = pcall(require, "lsp.servers." .. server)
 				local srv_config = {
-					on_attach = on_attach,
 					capabilities = capabilities
 				}
 
@@ -99,7 +93,18 @@ return {
 		'saghen/blink.cmp',
 		dependencies = {
 			'rafamadriz/friendly-snippets',
-			'L3MON4D3/LuaSnip',
+			{
+				'L3MON4D3/LuaSnip',
+				version = 'v2.*',
+				dependencies = {
+					'rafamadriz/friendly-snippets',
+				},
+				run = 'make install_jsregexp',
+				opts = function()
+					require("luasnip.loaders.from_vscode").lazy_load()
+					require("luasnip.loaders.from_lua").load({paths = "./lua/snippets"})
+				end
+			},
 			'folke/lazydev.nvim',
 		},
 		version = '1.*',

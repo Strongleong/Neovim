@@ -179,14 +179,6 @@ mapn('<Leader>dl', dap.run_last,          '[DAP] Run last')
 -- dapui
 mapn('<Leader>k', require("dap.ui.widgets").hover, '[DAP] hover var')
 
--- Hop.nvim
-local hop, hint = require("hop"), require("hop.hint")
-mapa('f', function () hop.hint_char1({ direction = hint.HintDirection.AFTER_CURSOR,  current_line_only = true }) end,                   '[HOP] Jump to symbol')
-mapa('F', function () hop.hint_char1({ direction = hint.HintDirection.BEFORE_CURSOR, current_line_only = true }) end,                   '[HOP] Jump back to symbol')
-mapa('t', function () hop.hint_char1({ direction = hint.HintDirection.AFTER_CURSOR,  current_line_only = true, hint_offset = -1 }) end, '[HOP] Jump before symbol')
-mapa('T', function () hop.hint_char1({ direction = hint.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = -1 }) end, '[HOP] Jump back before symbol')
-mapa('<leader>jw', function () hop.hint_words({ hint_position = hint.HintPosition.END }) end, '[HOP] Jump to word')
-
 -- EasyAlign
 mapx('ga', '<Plug>(EasyAlign)', '[EasyAlign] Start interactive EasyAlign in visual mode')
 mapn('ga', '<Plug>(EasyAlign)', '[EasyAlign] Start interactive EasyAlign for a motion/text object')

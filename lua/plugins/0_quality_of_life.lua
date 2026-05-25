@@ -86,7 +86,6 @@ return {
 
   { 'catgoose/nvim-colorizer.lua',       opts = {} },
   { 'kylechui/nvim-surround',            opts = {} },
-  { 'phaazon/hop.nvim',                  opts = {} },
   { 'williamboman/mason-lspconfig.nvim', opts = {} },
   { "johmsalas/text-case.nvim",          opts = {} },
 
