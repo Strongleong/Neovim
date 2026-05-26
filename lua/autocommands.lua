@@ -344,6 +344,21 @@ local autoCommands = {
       }
     }
   },
+
+  Treesitter = {
+    {
+      events = "FileType",
+      opts = {
+        callback = function()
+          local res = pcall(vim.treesitter.start)
+
+          if res then
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end
+      }
+    }
+  }
 }
 
 create_autocmd(autoCommands)
