@@ -104,9 +104,19 @@ return {
 
   {
     'mrjones2014/smart-splits.nvim',
+    dependencies = {
+      {
+        'smart-splits-nvim/backend-tmux',
+        main = 'smart-splits-backend-tmux',
+        opts = {
+          disable_multiplexer_nav_when_zoomed = true,
+        }
+      },
+    },
     opts = {
-      disable_multiplexer_nav_when_zoomed = true,
-    }
+      mux = { backend = 'smart-splits-backend-tmux' },
+      move = { at_edge = 'split' },
+    },
   },
 
   {

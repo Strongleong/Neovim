@@ -359,11 +359,16 @@ local autoCommands = {
       events = "FileType",
       opts = {
         callback = function()
-          local res = pcall(vim.treesitter.start)
+          local is_ok = pcall(vim.treesitter.start)
 
-          if res then
-            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          if not is_ok then
+            vim.notify("Can not start treesitter", vim.log.levels.WARN)
+            return
           end
+
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+          vim.wo[0][0].foldmethod = 'expr'
         end
       }
     }

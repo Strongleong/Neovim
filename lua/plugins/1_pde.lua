@@ -102,7 +102,7 @@ return {
 				run = 'make install_jsregexp',
 				opts = function()
 					require("luasnip.loaders.from_vscode").lazy_load()
-					require("luasnip.loaders.from_lua").load({paths = "./lua/snippets"})
+					require("luasnip.loaders.from_lua").load({ paths = "./lua/snippets" })
 				end
 			},
 			'folke/lazydev.nvim',
@@ -269,5 +269,11 @@ return {
 		opts = {
 			scroll_output = true
 		},
-	}
+	},
+
+	{
+		'nvim-treesitter/nvim-treesitter',
+		build = ':TSUpdate',
+		lazy = false,
+	},
 }

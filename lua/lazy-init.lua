@@ -29,5 +29,6 @@ require'lazy'.setup('plugins', {
   dev = {
     path = "~/projects/strongleong/nvim",
     fallback = true,
-  }
+  },
+  rocks = { hererocks = false },
 })
