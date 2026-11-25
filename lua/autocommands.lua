@@ -91,7 +91,7 @@ local autoCommands = {
       events = { 'BufNewFile', 'BufRead' },
       opts   = {
         pattern = { '*env.example' },
-        command = 'set ft=sh',
+        command = 'set ft=env',
         desc    = 'env.example files == .env files'
       },
     },
@@ -183,6 +183,15 @@ local autoCommands = {
         pattern = { '*.MD' },
         command = 'set ft=markdown',
         desc    = 'Sometimes people create markdown files with capslock enabled I guess'
+      },
+    },
+
+    {
+      events = { 'BufNewFile', 'BufRead' },
+      opts   = {
+        pattern = { '*.mpy' },
+        command = 'set ft=python',
+        desc    = 'mpy is python'
       },
     },
 
