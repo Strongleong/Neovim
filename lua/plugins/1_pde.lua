@@ -22,8 +22,8 @@ return {
 		opts = {
 			library = {
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+				"nvim-dap-ui",
 			},
-			{ "nvim-dap-ui" },
 		},
 	},
 
@@ -36,11 +36,7 @@ return {
 			'williamboman/mason-lspconfig.nvim',
 			"b0o/schemastore.nvim",
 		},
-		init = function()
-			local mason = require("mason-lspconfig")
-			local blink = require("blink.cmp")
-
-
+		config = function()
 			--- @type vim.diagnostic.Opts
 			local config = {
 				virtual_text     = true,
@@ -70,15 +66,11 @@ return {
 			}
 
 			vim.diagnostic.config(config)
-
-			local capabilities = blink.get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
-			local servers = mason.get_installed_servers()
+			local servers = require("mason-lspconfig").get_installed_servers()
 
 			for _, server in pairs(servers) do
 				local ok, settings = pcall(require, "lsp.servers." .. server)
-				local srv_config = {
-					capabilities = capabilities
-				}
+				local srv_config = {}
 
 				if ok then
 					srv_config = vim.tbl_deep_extend('force', srv_config, settings)
