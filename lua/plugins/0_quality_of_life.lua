@@ -115,7 +115,6 @@ return {
     },
     opts = {
       mux = { backend = 'smart-splits-backend-tmux' },
-      move = { at_edge = 'split' },
     },
   },
 
