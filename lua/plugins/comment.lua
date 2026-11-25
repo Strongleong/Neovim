@@ -1,22 +1,12 @@
 return {
     {
-        'JoosepAlviste/nvim-ts-context-commentstring',
-        lazy = false,
-        opts = function()
-            local tcc = require('ts_context_commentstring')
-            tcc.setup()
-        end
-    },
-
-    {
         'numToStr/Comment.nvim',
         dependencies = {
             'JoosepAlviste/nvim-ts-context-commentstring',
         },
         lazy = false,
         opts = function()
-            local comment = require("Comment")
-            comment.setup {
+            return {
                 -- I left default keymaps here so I can find them without google
                 toggler = {           -- LHS of toggle mappings in NORMAL mode
                     line  = 'gcc',    -- Line-comment toggle keymap

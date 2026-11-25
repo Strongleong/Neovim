@@ -1,6 +1,6 @@
 local function create_autocmd(definitions)
   for group_name, autocmds in pairs(definitions) do
-    local augroup = vim.api.nvim_create_augroup(group_name, {});
+    local augroup = vim.api.nvim_create_augroup(group_name, { clear = true });
     for _, autocmd in pairs(autocmds) do
       autocmd.opts.group = augroup
       vim.api.nvim_create_autocmd(autocmd.events, autocmd.opts)
@@ -362,7 +362,6 @@ local autoCommands = {
           local is_ok = pcall(vim.treesitter.start)
 
           if not is_ok then
-            vim.notify("Can not start treesitter", vim.log.levels.WARN)
             return
           end
 

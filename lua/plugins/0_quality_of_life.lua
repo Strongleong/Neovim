@@ -1,7 +1,7 @@
 return {
   {
     "EdenEast/nightfox.nvim",
-    opts = function()
+    config = function()
       local nightfox = require("nightfox")
       local cache_dir = vim.fn.stdpath("cache") .. "/nightfox"
 

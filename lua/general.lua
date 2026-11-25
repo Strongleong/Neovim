@@ -18,7 +18,6 @@ vim.opt.foldmethod     = 'expr'                       -- Set foldlding method to
 vim.opt.foldlevelstart = 99                           -- Make that folds don't fold on startup
 vim.opt.foldlevel      = 99                           -- Make that folds don't fold on startup
 vim.opt.foldenable     = false                        -- Disable folding at startup for TreeSitter
-vim.opt.foldexpr       = 'nvim_treesitter#foldexpr()' -- Enable Treesitter folding
 vim.opt.termguicolors  = true                         -- Pretty colors
 vim.opt.backup         = false                        -- Creates a backup file
 vim.opt.cmdheight      = 1                            -- No more space in the neovim command line for displaying messages

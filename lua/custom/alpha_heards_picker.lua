@@ -13,7 +13,7 @@ local actions      = require("telescope.actions")
 local previewers   = require("telescope.previewers")
 local action_state = require("telescope.actions.state")
 
-M = {}
+local M = {}
 
 M.select_header = function(opts)
   opts = opts or {}

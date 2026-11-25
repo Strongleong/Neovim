@@ -221,13 +221,13 @@ map({'n', 'v'}, '<Right>', '<Nop>', '[Hard mode :D] Disable RIGHT key')
 
 --------------- Callbacks for plugins `on_attach` functions ---------------
 
-M = {}
+local M = {}
 
 M.nvim_tree = function (bufnr)
   local api = require('nvim-tree.api')
   local opts = { buffer = bufnr, noremap = true, nowait = true }
 
-  api.config.mappings.default_on_attach(bufnr)
+  api.map.on_attach.default(bufnr)
 
   mapn('l',    api.node.open.edit,             '[NVIM-TREE] Open',                 opts)
   mapn('<CR>', api.node.open.edit,             '[NVIM-TREE] Open',                 opts)
