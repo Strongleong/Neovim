@@ -12,10 +12,6 @@ local function map(mode, keys, command, description, additional)
   vim.keymap.set(mode, keys, command, options)
 end
 
-local function mapa(keys, command, description, additional)
-  map('', keys, command, description, additional)
-end
-
 local function mapn(keys, command, description, additional)
   map('n', keys, command, description, additional)
 end
@@ -61,6 +57,11 @@ mapi('<C-+>', increment_font_size, '[GUI] Decrease font size')
 
 mapn('<leader>fn', "i <C-R>=expand('%:t:r')<CR>", '[MISC] Paste filename of current buffer')
 mapi('<C-f><C-n>', "<C-R>=expand('%:t:r')<CR>", '[MISC] Paste filename of current buffer')
+
+mapn('<C-q>', function ()
+  local mc_ns = vim.api.nvim_create_namespace('nvim.multicursor')
+  vim.api.nvim_buf_clear_namespace(0, mc_ns, 0, -1)
+end, '[Cursors] Clear additional cursors')
 
 local smartSplits = require("smart-splits")
 mapn('<C-A-h>',           smartSplits.resize_left,       '[SmartSplits] Resize buffer left')
